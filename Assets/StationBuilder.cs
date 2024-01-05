@@ -3,20 +3,22 @@ using TMPro;
 using UnityEngine;
 
 
-public class BuildShelf : MonoBehaviour
+public class StationBuilder : MonoBehaviour
 {
-    [SerializeField] private GameObject shelfPrefab;
-    [SerializeField] private Transform shelfOrigin;
+    [SerializeField] private GameObject stationPrefab;
+    [SerializeField] private Transform stationOrigin;
     [SerializeField] private UnityEngine.UI.Image fillImage;
 
     private bool isPlayerInTrigger = false;
 
     [SerializeField] private int cost = 100;
+    private int remainingCost;
     [SerializeField] private TextMeshProUGUI costText;
 
     private void Start()
     {
         costText.text = $"${cost}";
+        remainingCost = cost;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,7 +26,7 @@ public class BuildShelf : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInTrigger = true;
-            BuildShoeShelf();
+            BuildStation();
         }
     }
 
@@ -36,21 +38,21 @@ public class BuildShelf : MonoBehaviour
         }
     }
 
-    private async void BuildShoeShelf()
+    private async void BuildStation()
     {
-        while (cost > 0 && PlayerStats.Cash > 0 && isPlayerInTrigger)
+        while (remainingCost > 0 && PlayerStats.Cash > 0 && isPlayerInTrigger)
         {
             await Task.Delay(100);
             // decrement from player cash while cost is greater than 0, slowly fill the image
-            cost--;
-            costText.text = $"${cost}";
+            remainingCost--;
+            costText.text = $"${remainingCost}";
             PlayerStats.Cash--;
-            fillImage.fillAmount = 1 - (float)cost / 100;
+            fillImage.fillAmount = 1 - (float)remainingCost / (float)cost;
 
-            if (cost == 0)
+            if (remainingCost == 0)
             {
-                // instantiate the shelf prefab
-                Instantiate(shelfPrefab, shelfOrigin.position, shelfOrigin.rotation);
+                // instantiate the station prefab
+                Instantiate(stationPrefab, stationOrigin.position, stationOrigin.rotation);
                 // destroy this game object
                 Destroy(gameObject);
             }

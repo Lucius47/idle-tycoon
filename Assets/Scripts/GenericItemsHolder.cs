@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -74,6 +75,16 @@ public class GenericItemsHolder : MonoBehaviour
         RemoveItem(Type);
     }
 
+    // Testing
+
+    private void Start()
+    {
+        if (supplier)
+        {
+            StartCoroutine(AddItemsPerTime());
+        }
+    }
+
     private void Update()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -92,6 +103,17 @@ public class GenericItemsHolder : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator AddItemsPerTime()
+    {
+        while (true)
+        {
+            AddItem(Type);
+            yield return new WaitForSeconds(2f);
+        }
+    }
+
+    // Testing
 
     private enum StackingDirection
     {

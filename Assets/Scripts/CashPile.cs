@@ -17,7 +17,7 @@ public class CashPile : MonoBehaviour
 
     private void Start()
     {
-        AddCash(xxx);
+        AddCashInstantly(xxx);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,6 +49,33 @@ public class CashPile : MonoBehaviour
             if (Cash == 0)
             {
                 Destroy(gameObject);
+            }
+        }
+    }
+
+    public void AddCashInstantly(int amount)
+    {
+        int x = 0;
+        int y = 0;
+        int z = 0;
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject cash = Instantiate(cashPrefab, transform.position, Quaternion.identity, cashOrigin);
+            cash.transform.position = cashOrigin.position + new Vector3(x * gap.x, z * gap.y, y * gap.z);
+            Cash++;
+
+            x++;
+
+            if (x == cashPileSize.x)
+            {
+                x = 0;
+                y++;
+
+                if (y == cashPileSize.y)
+                {
+                    y = 0;
+                    z++;
+                }
             }
         }
     }
