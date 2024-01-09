@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GenericItemsHolder : MonoBehaviour
@@ -30,7 +29,7 @@ public class GenericItemsHolder : MonoBehaviour
 
         if (heldItems.Count + 1 > itemsHolds.Length * itemsPerRow)
         {
-            Debug.LogError("Not enough rows for this amount of items");
+            Debug.LogError("Not enough rows for this amount of items " + this.transform.name);
             return false;
         }
 
