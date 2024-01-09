@@ -5,7 +5,7 @@ public class CashCollector : MonoBehaviour
 {
     [SerializeField] private float delayPerExchange = 0.05f;
 
-    CashPile cashPile;
+    private CashPile cashPile;
 
     Coroutine collectCashCoroutine;
 
@@ -37,10 +37,10 @@ public class CashCollector : MonoBehaviour
             if (cashPile.Cash > 0)
             {
                 PlayerStats.Cash += cashPile.GetCash();
-                Handheld.Vibrate();
+                //Handheld.Vibrate();
+                VibrationManager.Vibrate(50);
             }
             yield return new WaitForSeconds(delayPerExchange);
-            
         }
     }
 }
