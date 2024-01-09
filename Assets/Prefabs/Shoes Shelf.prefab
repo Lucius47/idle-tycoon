@@ -285,7 +285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2066926790091157125
 RectTransform:
   m_ObjectHideFlags: 0
@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 675724086717240979}
   - component: {fileID: 8614223492018178440}
   - component: {fileID: 4583330649363404531}
+  - component: {fileID: 4688495534916727197}
   m_Layer: 0
   m_Name: Shoes Shelf
   m_TagString: Untagged
@@ -449,6 +450,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.9999998, y: 1.9999999, z: 0.6}
   m_Center: {x: 0, y: 1, z: 0.29999995}
+--- !u!65 &4688495534916727197
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179305274951777604}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.9999998, y: 1.9999999, z: 0.4}
+  m_Center: {x: 0, y: 1, z: 0.8}
 --- !u!1 &3210186719045960177
 GameObject:
   m_ObjectHideFlags: 0
