@@ -3,8 +3,24 @@ using TouchControlsKit;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
+    public float velocity = 5f;
+    public float turnSpeed = 10f;
+
+    private Vector2 input;
+    private float angle;
+
+    private Quaternion targetRotation;
+    private Transform cam;
+
+    public CharacterController controller;
+
+
     [SerializeField] private Animator animator;
+
+    //private void OnControllerColliderHit(ControllerColliderHit hit)
+    //{
+        
+    //}
 
     private void Awake()
     {
@@ -12,39 +28,79 @@ public class PlayerMovement : MonoBehaviour
         {
             animator = GetComponentInChildren<Animator>();
         }
-    }
 
-    private Vector3 previousPosition;
+        cam = Camera.main.transform;
+
+        controller = GetComponent<CharacterController>();
+    }
 
     private void Update()
     {
-        Vector2 movement = TCKInput.GetAxis("Joystick");
-        
+        GetInput();
+        Animate();
 
-        // normalize the movement vector so that diagonal movement isn't faster
-        movement.Normalize();
+        if (Mathf.Abs(input.x) < 1 && Mathf.Abs(input.y) < 1) return;
 
-        // move the player in different directions based on camera look direction
-        transform.Translate(movement.x * speed * Time.deltaTime, 0, movement.y * speed * Time.deltaTime, Camera.main.transform);
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        CalculateDirection();
+        Rotate();
+        Move();
+    }
 
-        
-        if (movement != Vector2.zero)
+    private void GetInput()
+    {
+        var movement = TCKInput.GetAxis("Joystick");
+
+        if (movement.x > 0.5f)
         {
-            // rotate the player to face the direction of movement
-            var dir = transform.position - previousPosition;
-            transform.rotation = Quaternion.LookRotation(dir);
-
-            // play the walking animation
-            animator.SetBool("moving", true);
+            movement.x = 1;
+        }
+        else if (movement.x < -0.5f)
+        {
+            movement.x = -1;
         }
         else
         {
-            animator.SetBool("moving", false);
+            movement.x = 0;
         }
 
+        if (movement.y > 0.5f)
+        {
+            movement.y = 1;
+        }
+        else if (movement.y < -0.5f)
+        {
+            movement.y = -1;
+        }
+        else
+        {
+            movement.y = 0;
+        }
 
+        input.x = movement.x;
+        input.y = movement.y;
+    }
 
-        previousPosition = transform.position;
+    private void CalculateDirection()
+    {
+        angle = Mathf.Atan2(input.x, input.y);
+        angle = Mathf.Rad2Deg * angle;
+        angle += cam.eulerAngles.y;
+    }
+
+    private void Rotate()
+    {
+        targetRotation = Quaternion.Euler(0, angle, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+    }
+
+    private void Move()
+    {
+        //transform.position += Time.deltaTime * velocity * transform.forward;
+        controller.Move(Time.deltaTime * velocity * transform.forward);
+    }
+
+    private void Animate()
+    {
+        animator.SetFloat("Speed", input.magnitude);
     }
 }

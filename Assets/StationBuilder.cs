@@ -42,7 +42,8 @@ public class StationBuilder : MonoBehaviour
     {
         while (remainingCost > 0 && PlayerStats.Cash > 0 && isPlayerInTrigger)
         {
-            await Task.Delay(100);
+            await Task.Delay(50);
+            Handheld.Vibrate();
             // decrement from player cash while cost is greater than 0, slowly fill the image
             remainingCost--;
             costText.text = $"${remainingCost}";

@@ -65,6 +65,7 @@ public class GenericItemsHolder : MonoBehaviour
         return true;
     }
 
+    // Testing
     public void AddItemBtn()
     {
         AddItem(Type);
@@ -75,7 +76,6 @@ public class GenericItemsHolder : MonoBehaviour
         RemoveItem(Type);
     }
 
-    // Testing
 
     private void Start()
     {
