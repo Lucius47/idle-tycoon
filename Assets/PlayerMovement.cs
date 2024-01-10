@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     //private void OnControllerColliderHit(ControllerColliderHit hit)
     //{
-        
+
     //}
 
     private void Awake()
@@ -95,12 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        //transform.position += Time.deltaTime * velocity * transform.forward;
-        if (true)
-        {
-            controller.Move(Time.deltaTime * velocity * transform.forward);
-
-        }
+        controller.Move(Time.deltaTime * velocity * transform.forward);
     }
 
     private void Animate()
