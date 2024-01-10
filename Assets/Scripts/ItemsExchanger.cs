@@ -47,7 +47,8 @@ public class ItemsExchanger : MonoBehaviour
                 if (receiver.AddItem(supplier.Type))
                 {
                     supplier.RemoveItem(supplier.Type);
-                    Handheld.Vibrate();
+                    //Handheld.Vibrate();
+                    VibrationManager.Vibrate(50);
                 }
             }
             yield return new WaitForSeconds(delayPerExchange);
