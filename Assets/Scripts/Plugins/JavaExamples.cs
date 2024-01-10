@@ -1,8 +1,13 @@
 using UnityEngine;
 
-public static class VibrationManager
+public class JavaExamples : MonoBehaviour
 {
-    public static void Vibrate(int milliseconds = 100)
+    private void Start()
+    {
+        Handheld.Vibrate();
+    }
+
+    private void Call()
     {
         AndroidJNIHelper.debug = true;
 
@@ -11,6 +16,14 @@ public static class VibrationManager
         AndroidJavaObject context = activity.Call<AndroidJavaObject>("getApplicationContext");
 
         using AndroidJavaClass newClass = new AndroidJavaClass("com.ehs.idle.VibrationHelper");
-        newClass.CallStatic("vibrate", context, milliseconds);
+        newClass.CallStatic("vibrate", context, 1000);
+    }
+
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(0, 0, 100, 100), "Vibrate"))
+        {
+            Call();
+        }
     }
 }
