@@ -50,32 +50,6 @@ public class PlayerMovement : MonoBehaviour
     {
         var movement = TCKInput.GetAxis("Joystick");
 
-        //if (movement.x > 0.5f)
-        //{
-        //    movement.x = 1;
-        //}
-        //else if (movement.x < -0.5f)
-        //{
-        //    movement.x = -1;
-        //}
-        //else
-        //{
-        //    movement.x = 0;
-        //}
-
-        //if (movement.y > 0.5f)
-        //{
-        //    movement.y = 1;
-        //}
-        //else if (movement.y < -0.5f)
-        //{
-        //    movement.y = -1;
-        //}
-        //else
-        //{
-        //    movement.y = 0;
-        //}
-
         input.x = movement.x;
         input.y = movement.y;
     }

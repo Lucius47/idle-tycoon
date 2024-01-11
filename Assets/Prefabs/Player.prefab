@@ -838,7 +838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 5
-  turnSpeed: 100
+  turnSpeed: 5000
   controller: {fileID: 0}
   animator: {fileID: 7846825015204858003}
 --- !u!114 &2005320899214914569
