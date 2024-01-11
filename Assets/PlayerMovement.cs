@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     //private void OnControllerColliderHit(ControllerColliderHit hit)
     //{
-        
+
     //}
 
     private void Awake()
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         GetInput();
         Animate();
 
-        if (Mathf.Abs(input.x) < 1 && Mathf.Abs(input.y) < 1) return;
+        if ((input.x) == 0 && (input.y) == 0) return;
 
         CalculateDirection();
         Rotate();
@@ -50,31 +50,31 @@ public class PlayerMovement : MonoBehaviour
     {
         var movement = TCKInput.GetAxis("Joystick");
 
-        if (movement.x > 0.5f)
-        {
-            movement.x = 1;
-        }
-        else if (movement.x < -0.5f)
-        {
-            movement.x = -1;
-        }
-        else
-        {
-            movement.x = 0;
-        }
+        //if (movement.x > 0.5f)
+        //{
+        //    movement.x = 1;
+        //}
+        //else if (movement.x < -0.5f)
+        //{
+        //    movement.x = -1;
+        //}
+        //else
+        //{
+        //    movement.x = 0;
+        //}
 
-        if (movement.y > 0.5f)
-        {
-            movement.y = 1;
-        }
-        else if (movement.y < -0.5f)
-        {
-            movement.y = -1;
-        }
-        else
-        {
-            movement.y = 0;
-        }
+        //if (movement.y > 0.5f)
+        //{
+        //    movement.y = 1;
+        //}
+        //else if (movement.y < -0.5f)
+        //{
+        //    movement.y = -1;
+        //}
+        //else
+        //{
+        //    movement.y = 0;
+        //}
 
         input.x = movement.x;
         input.y = movement.y;
@@ -95,7 +95,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        //transform.position += Time.deltaTime * velocity * transform.forward;
         controller.Move(Time.deltaTime * velocity * transform.forward);
     }
 
