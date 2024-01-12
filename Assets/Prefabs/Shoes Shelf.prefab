@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 8614223492018178440}
   - component: {fileID: 4583330649363404531}
   - component: {fileID: 4688495534916727197}
+  - component: {fileID: -6575308814439400024}
   m_Layer: 0
   m_Name: Shoes Shelf
   m_TagString: Untagged
@@ -405,6 +406,7 @@ Transform:
   - {fileID: 8054685551103126406}
   - {fileID: 2066926790091157125}
   - {fileID: 7933795800943028630}
+  - {fileID: 1097361505350771233}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8614223492018178440
@@ -471,6 +473,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.9999998, y: 2, z: 0.26476616}
   m_Center: {x: 0, y: 1, z: 0.8676169}
+--- !u!114 &-6575308814439400024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179305274951777604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b0afa5bc03a444787f674b80470eba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customerWaitPoint: {fileID: 1097361505350771233}
+  stationType: 0
 --- !u!1 &3210186719045960177
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +549,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7933795800943028630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4887843353757193441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1097361505350771233}
+  m_Layer: 0
+  m_Name: Customer Wait Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1097361505350771233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4887843353757193441}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 675724086717240979}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &6068610097128076018
 GameObject:
   m_ObjectHideFlags: 0

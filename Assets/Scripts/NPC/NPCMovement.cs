@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 public class NPCMovement : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
     private NavMeshAgent agent;
     public float turnSpeed = 10f;
+
+    private UnityEngine.Events.UnityAction reachedTarget;
 
 
     [SerializeField] private Animator animator;
@@ -20,27 +19,41 @@ public class NPCMovement : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         }
         agent = GetComponent<NavMeshAgent>();
-        if (target != null) 
-        {
-            agent.destination = target.position;
-        }
+    }
+
+    public void SetTarget(Transform _target, UnityEngine.Events.UnityAction _reachedTarget = null)
+    {
+        target = _target;
+        agent.destination = _target.position;
+
+        reachedTarget = null;
+        reachedTarget = _reachedTarget;
     }
 
     void Update()
     {
         Animates();
 
-        if (agent.remainingDistance < 0.3f)
+        if (target == null)
         {
-            agent.destination = target.position;
-            agent.speed = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, target.rotation, turnSpeed * Time.deltaTime);
+            return;
         }
 
+        if (agent.remainingDistance < 0.3f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, target.rotation, turnSpeed * Time.deltaTime);
+
+            if (reachedTarget != null)
+            {
+                reachedTarget.Invoke();
+                reachedTarget = null;
+            }
+        }
     }
+
+
     private void Animates()
     {
-        animator.SetFloat("Speed", agent.speed);
-
+        animator.SetFloat("Speed", agent.velocity.magnitude);
     }
 }

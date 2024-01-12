@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StationBase : MonoBehaviour
 {
-    [SerializeField] private GameObject stationPrefab;
+    [SerializeField] private Station stationPrefab;
     [SerializeField] private Transform stationOrigin;
     [SerializeField] private UnityEngine.UI.Image fillImage;
 
@@ -28,8 +28,8 @@ public class StationBase : MonoBehaviour
 
             if (remainingCost == 0)
             {
-                var newStation = Instantiate(stationPrefab, stationOrigin.position, stationOrigin.rotation);
-                StoreManager.Instance.AddStation(newStation);
+                var newStationGO = Instantiate(stationPrefab, stationOrigin.position, stationOrigin.rotation);
+                StoreManager.Instance.AddStation(newStationGO.GetComponent<Station>());
                 Destroy(gameObject);
             }
 
