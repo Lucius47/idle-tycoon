@@ -15,3 +15,4 @@ MonoBehaviour:
   shoes: {fileID: 6656690101808144726, guid: fb66acbf977d68946a5c51f3605008a1, type: 3}
   clothes: {fileID: 0}
   hats: {fileID: 0}
+  boxPrefab: {fileID: 653151075262306277, guid: 112df12703ee0794c8a7a29e9c959abb, type: 3}

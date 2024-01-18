@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,11 @@ public class StoreManager : MonoBehaviour
     List<Station> stations = new List<Station>();
     public List<Station> Stations => stations;
 
+    [SerializeField] private GameObject customerPrefab;
+    [SerializeField] private Transform storeEnterance;
+    public Transform storeExit;
+
+    [SerializeField] private int numOfCustomers = 5;
 
     private void Awake()
     {
@@ -30,6 +36,29 @@ public class StoreManager : MonoBehaviour
         //{
         //    Instantiate(Items.Instance.GetItem(station));
         //}
+    }
+
+    private IEnumerator Start()
+    {
+        //InvokeRepeating(nameof(SpawnCustomer), 5, 5);
+        for (int i = 0; i < numOfCustomers; i++)
+        {
+            yield return new WaitForSeconds(5);
+            Instantiate(customerPrefab, storeEnterance.position, storeEnterance.rotation);
+        }
+        
+    }
+
+
+    private void SpawnCustomer()
+    {
+        foreach (Station station in stations)
+        {
+            if (station.IsAnySpotAvailable())
+            {
+                Instantiate(customerPrefab, storeEnterance.position, storeEnterance.rotation);
+            }
+        }
     }
 
     public void AddStation(Station staion)

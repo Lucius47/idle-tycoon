@@ -7,6 +7,8 @@ public class Items : ScriptableObject
     [SerializeField] private GameObject clothes;
     [SerializeField] private GameObject hats;
 
+    public GameObject boxPrefab;
+
     private static Items _instance;
 
     public static Items Instance
