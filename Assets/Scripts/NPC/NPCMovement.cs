@@ -49,6 +49,8 @@ public class NPCMovement : MonoBehaviour
                 reachedTarget = null;
             }
         }
+
+        Debug.DrawLine(transform.position, target.position, Color.red);
     }
 
 

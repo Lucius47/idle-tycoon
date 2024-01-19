@@ -9,6 +9,9 @@ public class Customer : MonoBehaviour
     private NPCMovement npcMovement;
     private Items.ItemType currentItem;
 
+    private string[] nickNames;
+    private string nickName;
+
     private void Awake()
     {
         npcMovement = GetComponent<NPCMovement>();
@@ -16,6 +19,23 @@ public class Customer : MonoBehaviour
 
     private void Start()
     {
+        // Add 10 english nicknames to the list
+        nickNames = new string[]
+        {
+            "John",
+            "Mary",
+            "James",
+            "Patricia",
+            "Robert",
+            "Jennifer",
+            "Michael",
+            "Linda",
+            "William",
+            "Elizabeth",
+        };
+
+        nickName = nickNames[Random.Range(0, nickNames.Length)];
+
         state = State.LookingForShelf;
         MainLoop();
     }
@@ -265,6 +285,7 @@ public class Customer : MonoBehaviour
     {
         if (currentCounterStation && currentCounterStation.IsCustomerPresent(this))
         {
+            Debug.LogError($"{nickName} is waiting in line");
             state++;
             MainLoop();
         }

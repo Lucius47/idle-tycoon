@@ -30,7 +30,7 @@ public class Station : MonoBehaviour
     //    return null;
     //}
 
-    internal Transform GetWaitPoint()
+    internal Transform GetWaitPoint(string nickName = null)
     {
         if (currentCustomers < maxCustomers && !waitPointOccupiedState[currentCustomers])
         {
@@ -73,7 +73,7 @@ public class Station : MonoBehaviour
         {
             if (other.TryGetComponent(out Customer customer))
             {
-                waitPointOccupiedState[currentCustomers] = false;
+                waitPointOccupiedState[currentCustomers - 1] = false;
                 currentCustomers--;
                 customers.Remove(customer); // TODO
             }
