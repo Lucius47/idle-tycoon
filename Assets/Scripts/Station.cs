@@ -1,14 +1,91 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Station : MonoBehaviour
 {
     [SerializeField] private Transform[] customerWaitPoints;
-    private bool[] waitPointOccupiedState;
     public StationType stationType;
-    [SerializeField] private int maxCustomers = 5;
-    private int currentCustomers = 0;
-    private List<Customer> customers = new List<Customer>();
+
+    private WaitPoint[] waitPoints;
+
+    internal Transform GetWaitPoint(Customer customer)
+    {
+        for (int i = 0; i < waitPoints.Length; i++)
+        {
+            if (!waitPoints[i].CustomerTransform)
+            {
+                waitPoints[i].CustomerTransform = customer.transform;
+                return waitPoints[i].Transform;
+            }
+            else if (waitPoints[i].CustomerTransform == customer.transform)
+            {
+                return waitPoints[i].Transform;
+            }
+        }
+
+        return null;
+    }
+
+    internal bool IsAnySpotAvailable()
+    {
+        for (int i = 0; i < waitPoints.Length; i++)
+        {
+            if (!waitPoints[i].IsOccupied) return true;
+        }
+        return false;
+    }
+
+    private void Awake()
+    {
+        waitPoints = new WaitPoint[customerWaitPoints.Length];
+
+        for (int i = 0; i < waitPoints.Length; i++)
+        {
+            waitPoints[i] = new WaitPoint();
+            waitPoints[i].Transform = customerWaitPoints[i];
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out Customer customer))
+        {
+            for (int i = 0; i < waitPoints.Length; i++)
+            {
+                if (waitPoints[i].CustomerTransform == customer.transform)
+                {
+                    waitPoints[i].IsOccupied = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out Customer customer))
+        {
+            for (int i = 0; i < waitPoints.Length; i++)
+            {
+                if (waitPoints[i].CustomerTransform == customer.transform)
+                {
+                    waitPoints[i].IsOccupied = false;
+                    waitPoints[i].CustomerTransform = null;
+                    break;
+                }
+            }
+        }
+    }
+
+    internal bool IsCustomerPresent(Customer customer)
+    {
+        for (int i = 0; i < waitPoints.Length; i++)
+        {
+            if (waitPoints[i].CustomerTransform == customer.transform
+                && waitPoints[i].IsOccupied
+                ) return true;
+        }
+        return false;
+    }
 
     public enum StationType
     {
@@ -16,72 +93,10 @@ public class Station : MonoBehaviour
         Counter,
     }
 
-    //internal Transform GetWaitPoint()
-    //{
-    //    for (int i = 0; i < customerWaitPoints.Length; i++)
-    //    {
-    //        if (!waitPointOccupiedState[i])
-    //        {
-    //            waitPointOccupiedState[i] = true;
-    //            return customerWaitPoints[i];
-    //        }
-    //    }
-
-    //    return null;
-    //}
-
-    internal Transform GetWaitPoint(string nickName = null)
+    class WaitPoint
     {
-        if (currentCustomers < maxCustomers && !waitPointOccupiedState[currentCustomers])
-        {
-            waitPointOccupiedState[currentCustomers] = true;
-            return customerWaitPoints[currentCustomers];
-        }
-        return null;
-    }
-
-    internal bool IsAnySpotAvailable()
-    {
-        return currentCustomers < maxCustomers;
-        //for (int i = 0; i < waitPointOccupiedState.Length; i++)
-        //{
-        //    if (!waitPointOccupiedState[i]) return true;
-        //}
-        //return false;
-    }
-
-    private void Awake()
-    {
-        waitPointOccupiedState = new bool[customerWaitPoints.Length];
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (currentCustomers < maxCustomers)
-        {
-            if (other.TryGetComponent(out Customer customer))
-            {
-                currentCustomers++;
-                customers.Add(customer);
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (currentCustomers > 0)
-        {
-            if (other.TryGetComponent(out Customer customer))
-            {
-                waitPointOccupiedState[currentCustomers - 1] = false;
-                currentCustomers--;
-                customers.Remove(customer); // TODO
-            }
-        }
-    }
-
-    internal bool IsCustomerPresent(Customer customer)
-    {
-        return customers.Contains(customer);
+        public Transform Transform { get; set; }
+        public Transform CustomerTransform { get; set; }
+        public bool IsOccupied { get; set; }
     }
 }

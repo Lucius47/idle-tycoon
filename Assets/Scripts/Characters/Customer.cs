@@ -138,7 +138,7 @@ public class Customer : MonoBehaviour
         {
             if (currentShelf)
             {
-                var target = currentShelf.GetWaitPoint();
+                var target = currentShelf.GetWaitPoint(this);
 
                 if (target)
                 {
@@ -247,7 +247,7 @@ public class Customer : MonoBehaviour
         {
             if (currentCounterStation)
             {
-                var target = currentCounterStation.GetWaitPoint();
+                var target = currentCounterStation.GetWaitPoint(this);
 
                 if (target)
                 {
@@ -285,7 +285,7 @@ public class Customer : MonoBehaviour
     {
         if (currentCounterStation && currentCounterStation.IsCustomerPresent(this))
         {
-            Debug.LogError($"{nickName} is waiting in line");
+            // Debug.LogError($"{nickName} is waiting in line");
             state++;
             MainLoop();
         }

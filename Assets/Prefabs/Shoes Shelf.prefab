@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 4583330649363404531}
   - component: {fileID: 4688495534916727197}
   - component: {fileID: -6575308814439400024}
+  - component: {fileID: 3951918454720321416}
   m_Layer: 0
   m_Name: Shoes Shelf
   m_TagString: Untagged
@@ -493,6 +494,33 @@ MonoBehaviour:
   - {fileID: 3930594515918377280}
   stationType: 0
   maxCustomers: 5
+--- !u!54 &3951918454720321416
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179305274951777604}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1743116831602889969
 GameObject:
   m_ObjectHideFlags: 0
