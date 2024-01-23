@@ -38,25 +38,25 @@ public class StoreManager : MonoBehaviour
         //}
     }
 
-    private IEnumerator Start()
+    private void Start()
     {
-        //InvokeRepeating(nameof(SpawnCustomer), 5, 5);
-        for (int i = 0; i < numOfCustomers; i++)
-        {
-            yield return new WaitForSeconds(5);
-            Instantiate(customerPrefab, storeEnterance.position, storeEnterance.rotation);
-        }
-        
+        StartCoroutine(SpawnCustomers());
     }
 
 
-    private void SpawnCustomer()
+    private IEnumerator SpawnCustomers()
     {
-        foreach (Station station in stations)
+        while (true)
         {
-            if (station.IsAnySpotAvailable())
+            yield return new WaitForSeconds(10);
+
+            foreach (Station station in stations)
             {
-                Instantiate(customerPrefab, storeEnterance.position, storeEnterance.rotation);
+                if (station.stationType == Station.StationType.Shelf && station.IsAnySpotAvailable())
+                {
+                    Instantiate(customerPrefab, storeEnterance.position, storeEnterance.rotation);
+                    break;
+                }
             }
         }
     }
