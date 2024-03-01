@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -183,8 +184,12 @@ public class Customer : MonoBehaviour
             yield return new WaitForSeconds(0.5f); // Wait for a bit before trying again
 
             // Attempt to remove an item from the shelf
-            if (currentShelfStationItemsHolder.RemoveItem(currentShelfStationItemsHolder.Type))
+            if (currentShelfStationItemsHolder.RemoveItem(currentShelfStationItemsHolder.Type, out Transform removedTrans))
             {
+                // for the animation, spawn an item, move it to the player, destroy it
+                var itemForAnim = Instantiate(Items.Instance.GetItem(currentShelfStationItemsHolder.Type), removedTrans.position, removedTrans.rotation);
+                itemForAnim.transform.DOMove(itemTransform.position, 0.5f).OnComplete(() => Destroy(itemForAnim));
+
                 currentItem = currentShelfStationItemsHolder.Type;
                 Instantiate(Items.Instance.GetItem(currentItem), itemTransform.position, itemTransform.rotation, itemTransform);
                 hasItem2 = true; // Item successfully obtained

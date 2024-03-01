@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ using UnityEngine;
 public class ItemsExchanger : MonoBehaviour
 {
     [SerializeField] private float delayPerExchange = 0.1f;
+    [SerializeField] private float animationTime = 0.2f;
 
     GenericItemsHolder otherHolder;
     private Coroutine exchangeItemsCoroutine;
@@ -44,11 +46,14 @@ public class ItemsExchanger : MonoBehaviour
         {
             if (supplier.numOfItems > 0)
             {
-                if (receiver.AddItem(supplier.Type))
+                if (receiver.AddItem(supplier.Type, out Transform addedTrans))
                 {
-                    supplier.RemoveItem(supplier.Type);
-                    //Handheld.Vibrate();
+                    supplier.RemoveItem(supplier.Type, out Transform removedTrans);
                     VibrationManager.Vibrate(50);
+
+                    // play transfer animation. Spawn an item. Move it to the other holder. Destroy it.
+                    var item = Instantiate(Items.Instance.GetItem(supplier.Type), removedTrans.position, removedTrans.rotation);
+                    item.transform.DOMove(addedTrans.position, animationTime).OnComplete(() => Destroy(item));
                 }
             }
             yield return new WaitForSeconds(delayPerExchange);

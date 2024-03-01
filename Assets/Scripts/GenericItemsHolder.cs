@@ -16,11 +16,12 @@ public class GenericItemsHolder : MonoBehaviour
 
     private List<GameObject> heldItems = new();
 
-    public bool AddItem(Items.ItemType _type)
+    public bool AddItem(Items.ItemType _type, out Transform addedTrans)
     {
         if (Type != _type)
         {
             //Wrong type
+            addedTrans = null;
             return false;
         }
 
@@ -30,6 +31,7 @@ public class GenericItemsHolder : MonoBehaviour
         if (heldItems.Count + 1 > itemsHolds.Length * itemsPerRow)
         {
             Debug.LogError("Not enough rows for this amount of items " + this.transform.name);
+            addedTrans = null;
             return false;
         }
 
@@ -48,31 +50,35 @@ public class GenericItemsHolder : MonoBehaviour
             }
         }
 
+        addedTrans = heldItems[^1].transform;
         return true;
     }
 
-    public bool RemoveItem(Items.ItemType _type)
+    public bool RemoveItem(Items.ItemType _type, out Transform removedTrans)
     {
         if (Type != _type || numOfItems < 1)
         {
+            removedTrans = null;
             return false;
         }
 
+        var lastItemTransform = heldItems[^1].transform;
         Destroy(heldItems[^1]);
         heldItems.RemoveAt(heldItems.Count - 1);
         numOfItems--;
+        removedTrans = lastItemTransform;
         return true;
     }
 
     // Testing
     public void AddItemBtn()
     {
-        AddItem(Type);
+        AddItem(Type, out Transform _);
     }
 
     public void RemoveItemBtn()
     {
-        RemoveItem(Type);
+        RemoveItem(Type, out Transform _);
     }
 
 
@@ -93,11 +99,11 @@ public class GenericItemsHolder : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    AddItem(Type);
+                    AddItem(Type, out Transform _);
                 }
                 if (Input.GetKeyDown(KeyCode.Backspace))
                 {
-                    RemoveItem(Type);
+                    RemoveItem(Type, out Transform _);
                 }
             }
         }
@@ -107,7 +113,7 @@ public class GenericItemsHolder : MonoBehaviour
     {
         while (true)
         {
-            AddItem(Type);
+            AddItem(Type, out Transform _);
             yield return new WaitForSeconds(2f);
         }
     }
