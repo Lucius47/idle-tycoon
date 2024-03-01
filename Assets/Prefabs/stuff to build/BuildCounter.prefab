@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3435717752859813212}
   - component: {fileID: 365475971435142186}
   - component: {fileID: 8384850318226948002}
+  - component: {fileID: 972626429344872156}
   m_Layer: 0
   m_Name: BuildCounter
   m_TagString: Untagged
@@ -47,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61762a85cc444140b28897492b1973e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stationPrefab: {fileID: 1179305274951777604, guid: 4600809c7c5b64b449ea55fc6c3f3d71, type: 3}
+  stationPrefab: {fileID: 1828940683711294064, guid: 5167b1b1b15759049afb2d9be6f98d8e, type: 3}
   stationOrigin: {fileID: 1041548254021090589}
   fillImage: {fileID: 2114292821955686457}
   cost: 100
@@ -74,6 +75,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &972626429344872156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246200374142085990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd37a638fafae1419e4633fa98d67a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2182918735012868777
 GameObject:
   m_ObjectHideFlags: 0
