@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
+    [SerializeField] private CashPile cashPile; // This is the cash pile that the counter is associated with
+
     private StoreWorker currentWorker;
     private bool isWorkerPresent = false;
 
@@ -41,7 +43,8 @@ public class Counter : MonoBehaviour
     {
         if (isWorkerPresent && currentWorker != null)
         {
-            PlayerStats.Cash += 10; ;
+            cashPile.AddCashInstantly(10);
+            //PlayerStats.Cash += 10;
             return true;
         }
         return false;
