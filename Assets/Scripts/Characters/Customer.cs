@@ -106,11 +106,11 @@ public class Customer : MonoBehaviour
     {
         while (currentShelf == null)
         {
-            foreach (Station station in StoreManager.Instance.Stations)
+            foreach (StoreManager.StationHolder stationHolder in StoreManager.Instance.Stations)
             {
-                if (station.stationType == Station.StationType.Shelf && station.IsAnySpotAvailable())
+                if (stationHolder.station.stationType == Station.StationType.Shelf && stationHolder.station.IsAnySpotAvailable())
                 {
-                    currentShelf = station;
+                    currentShelf = stationHolder.station;
                     break;
                 }
             }
@@ -215,11 +215,11 @@ public class Customer : MonoBehaviour
                 //    .OrderBy(x => Random.value)
                 //    .FirstOrDefault();
 
-                foreach (Station station in StoreManager.Instance.Stations)
+                foreach (StoreManager.StationHolder stationHolder in StoreManager.Instance.Stations)
                 {
-                    if (station.stationType == Station.StationType.Counter)
+                    if (stationHolder.station.stationType == Station.StationType.Counter)
                     {
-                        currentCounterStation = station;
+                        currentCounterStation = stationHolder.station;
                         break;
                     }
                 }
