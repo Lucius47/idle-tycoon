@@ -1,0 +1,58 @@
+{
+    "stations": [
+      {
+        "name": "showShelf1",
+        "station": {
+          "stationType": 0
+        },
+        "position": {
+          "x": -6.889999866485596,
+          "y": 0,
+          "z": 9.609999656677246
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.7071068286895752,
+          "z": 0,
+          "w": 0.7071068286895752
+        },
+        "isBuilt": false
+      },
+      {
+        "name": "showShelf2",
+        "station": {
+          "stationType": 0
+        },
+        "position": {
+          "x": -6.889999866485596,
+          "y": 0,
+          "z": 2.869999885559082
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.7071068286895752,
+          "z": 0,
+          "w": 0.7071068286895752
+        },
+        "isBuilt": false
+      },
+      {
+        "name": "Counter1",
+        "station": {
+          "stationType": 1
+        },
+        "position": {
+          "x": 6.619999885559082,
+          "y": 0,
+          "z": -5.909999847412109
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        },
+        "isBuilt": false
+      }
+    ]
+  }
