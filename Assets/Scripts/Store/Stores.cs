@@ -24,13 +24,4 @@ public class Stores : ScriptableObject
     #endregion
 
     public List<StoreX> stores = new();
-
-    //[Serializable]
-    //public class Store
-    //{
-    //    public string name;
-    //    public string description;
-    //    public Sprite image;
-    //    public int price;
-    //}
 }
