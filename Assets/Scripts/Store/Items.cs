@@ -10,6 +10,11 @@ public class Items : ScriptableObject
     public GameObject boxPrefab;
     public GameObject cashPrefab;
 
+    [Space]
+    [SerializeField] private StationSpawner shoeShelfPrefab;
+    [SerializeField] private StationSpawner counterPrefab;
+
+    #region Instance
     private static Items _instance;
 
     public static Items Instance
@@ -23,6 +28,7 @@ public class Items : ScriptableObject
             return _instance;
         }
     }
+    #endregion
 
 
     public enum ItemType
@@ -46,5 +52,15 @@ public class Items : ScriptableObject
             default:
                 return null;
         }
+    }
+
+    public StationSpawner GetStation(Station.StationType stationType)
+    {
+        return stationType switch
+        {
+            Station.StationType.Shelf => shoeShelfPrefab,
+            Station.StationType.Counter => counterPrefab,
+            _ => null,
+        };
     }
 }

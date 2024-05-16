@@ -61,7 +61,7 @@ public class ItemsExchanger : MonoBehaviour
                             ((removedTrans.position + addedTrans.position) / 2).y + 1.5f,
                             ((removedTrans.position + addedTrans.position) / 2).z),
                         addedTrans.position
-                    }, 0.2f).OnComplete(() => Destroy(item));
+                    }, animationTime).OnComplete(() => Destroy(item));
                 }
             }
             yield return new WaitForSeconds(delayPerExchange);

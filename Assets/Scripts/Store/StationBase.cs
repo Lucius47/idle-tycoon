@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class StationBase : MonoBehaviour
 {
-    [SerializeField] private Station stationPrefab;
+    public string stationName;
+    [SerializeField] private Station station;
     [SerializeField] private Transform stationOrigin;
     [SerializeField] private UnityEngine.UI.Image fillImage;
 
@@ -15,6 +16,8 @@ public class StationBase : MonoBehaviour
 
     private void Start()
     {
+        station.gameObject.SetActive(false);
+
         costText.text = $"${cost}";
         remainingCost = cost;
     }
@@ -29,12 +32,12 @@ public class StationBase : MonoBehaviour
 
             if (remainingCost == 0)
             {
-                var newStation = Instantiate(stationPrefab, stationOrigin.position, stationOrigin.rotation);
+                station.gameObject.SetActive(true);
 
-                newStation.transform.localScale = Vector3.one * 0.1f;
-                newStation.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
+                station.transform.localScale = Vector3.one * 0.1f;
+                station.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
 
-                StoreManager.Instance.AddStation(newStation, newStation.transform.position, newStation.transform.rotation);
+                StoreManager.Instance.AddStation(station, transform.parent.position, transform.parent.rotation, stationName);
                 Destroy(gameObject);
             }
 
