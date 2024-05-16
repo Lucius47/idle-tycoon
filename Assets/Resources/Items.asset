@@ -16,3 +16,6 @@ MonoBehaviour:
   clothes: {fileID: 0}
   hats: {fileID: 0}
   boxPrefab: {fileID: 653151075262306277, guid: 112df12703ee0794c8a7a29e9c959abb, type: 3}
+  cashPrefab: {fileID: 312041562796361492, guid: ec7a66ffbd96f814f9a6be10890ee4dc, type: 3}
+  shoeShelfPrefab: {fileID: 4925078749617695836, guid: 4600809c7c5b64b449ea55fc6c3f3d71, type: 3}
+  counterPrefab: {fileID: 4925078749617695836, guid: 45bccf1d689c0364c91673beb6a79ae3, type: 3}
