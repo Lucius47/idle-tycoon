@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static StoreManager;
 
 /// <summary>
 /// 1. Keep track of all the stations that are built and the items in those stations.
@@ -12,7 +11,7 @@ using static StoreManager;
 public class StoreManager : MonoBehaviour
 {
     public static StoreManager Instance { get; private set; }
-    public List<StationHolder> Stations = new List<StationHolder>();
+    public List<StationHolder> Stations = new();
 
     [SerializeField] private GameObject customerPrefab;
     [SerializeField] private Transform storeEntrance;
@@ -63,11 +62,17 @@ public class StoreManager : MonoBehaviour
             PlayerPrefs.SetInt("firstTime", 0);
             PlayerPrefs.Save();
             storeX = Stores.Instance.stores[0];
-            System.IO.File.WriteAllText(Application.persistentDataPath + "/Stations.json", JsonUtility.ToJson(storeX));
+            System.IO.File.WriteAllText(Application.persistentDataPath + "/Store1.json", JsonUtility.ToJson(storeX));
+
+            foreach (CashPileHolder cashPileHolder in storeX.cashPileHolders)
+            {
+                CashPile cashPile = Instantiate(Items.Instance.GetCashPile(), cashPileHolder.position, cashPileHolder.rotation);
+                cashPile.SetUp(cashPileHolder.amount, cashPileHolder.destroyOnEmpty);
+            }
         }
         else
         {
-            storeX = JsonUtility.FromJson<StoreX>(System.IO.File.ReadAllText(Application.persistentDataPath + "/Stations.json"));
+            storeX = JsonUtility.FromJson<StoreX>(System.IO.File.ReadAllText(Application.persistentDataPath + "/Store1.json"));
         }
 
 
@@ -78,10 +83,10 @@ public class StoreManager : MonoBehaviour
 
         foreach (StationHolderX stationHolderX in storeX.stations)
         {
-            StationSpawner stationSpawner = Instantiate(Items.Instance.GetStation(stationHolderX.station.stationType), 
+            StationSpawner stationSpawner = Instantiate(Items.Instance.GetStation(stationHolderX.stationType), 
                 stationHolderX.position, stationHolderX.rotation);
 
-            stationSpawner.SetUp(stationHolderX.isBuilt, stationHolderX.station.stationType, stationHolderX.name);
+            stationSpawner.SetUp(stationHolderX.isBuilt, stationHolderX.stationType, stationHolderX.name, stationHolderX.cost);
             
             if (stationHolderX.isBuilt)
             {
@@ -95,7 +100,7 @@ public class StoreManager : MonoBehaviour
     {
         Stations.Add(new StationHolder { station = _station, position = _position, rotation = _rotation });
 
-        StoreX storeX = JsonUtility.FromJson<StoreX>(System.IO.File.ReadAllText(Application.persistentDataPath + "/Stations.json"));
+        StoreX storeX = JsonUtility.FromJson<StoreX>(System.IO.File.ReadAllText(Application.persistentDataPath + "/Store1.json"));
 
         foreach (StationHolderX stationHolder in storeX.stations)
         {
@@ -107,7 +112,7 @@ public class StoreManager : MonoBehaviour
         }
 
         string json = JsonUtility.ToJson(storeX);
-        System.IO.File.WriteAllText(Application.persistentDataPath + "/Stations.json", json);
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/Store1.json", json);
     }
 
     [Serializable]
@@ -123,21 +128,26 @@ public class StoreManager : MonoBehaviour
 public class StoreX
 {
     public List<StationHolderX> stations = new();
+    public List<CashPileHolder> cashPileHolders = new();
 }
 
 [Serializable]
 public class StationHolderX
 {
+    public int cost;
     public string name;
-    public StationX station;
+    public Station.StationType stationType;
     public Vector3 position;
     public Quaternion rotation;
-
     public bool isBuilt;
 }
 
 [Serializable]
-public class StationX
+public class CashPileHolder
 {
-    public Station.StationType stationType;
+    public int amount;
+    public bool destroyOnEmpty;
+    public string name;
+    public Vector3 position;
+    public Quaternion rotation;
 }

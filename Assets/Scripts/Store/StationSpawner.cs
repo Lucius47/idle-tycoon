@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StationSpawner : MonoBehaviour
@@ -17,10 +18,16 @@ public class StationSpawner : MonoBehaviour
         }
     }
 
-    public void SetUp(bool isBuilt, Station.StationType stationType, string _name)
+    public void SetUp(bool isBuilt, Station.StationType stationType, string _name, int cost)
     {
         station.stationType = stationType;
         stationBuilder.stationName = _name;
+        stationBuilder.cost = cost;
+
+        if (_name.Contains("supplier"))
+        {
+            station.GetComponent<GenericItemsHolder>().supplier = true;
+        }
 
         if (isBuilt)
         {

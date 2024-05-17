@@ -14,21 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stores:
   - stations:
-    - name: shoeShelf1
-      station:
-        stationType: 0
-      position: {x: -6.89, y: 0, z: 9.61}
+    - cost: 25
+      name: shoeShelf1
+      stationType: 0
+      position: {x: -7, y: 0, z: 3}
       rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
       isBuilt: 0
-    - name: shoeShelf12
-      station:
-        stationType: 0
-      position: {x: -6.89, y: 0, z: 2.87}
-      rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+    - cost: 50
+      name: supplierShoeShelf1
+      stationType: 0
+      position: {x: -2, y: 0, z: -9}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
       isBuilt: 0
-    - name: Counter1
-      station:
-        stationType: 1
+    - cost: 25
+      name: counter1
+      stationType: 1
       position: {x: 6.62, y: 0, z: -5.91}
       rotation: {x: 0, y: 0, z: 0, w: 0}
+      isBuilt: 0
+    cashPileHolders:
+    - amount: 100
+      destroyOnEmpty: 1
+      name: cashPile1
+      position: {x: 2.25, y: 0, z: 3.5}
+      rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
       isBuilt: 0

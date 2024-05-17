@@ -10,7 +10,7 @@ public class StationBase : MonoBehaviour
     [SerializeField] private Transform stationOrigin;
     [SerializeField] private UnityEngine.UI.Image fillImage;
 
-    [SerializeField] private int cost = 100;
+    public int cost = 100;
     public int remainingCost;
     [SerializeField] private TextMeshProUGUI costText;
 

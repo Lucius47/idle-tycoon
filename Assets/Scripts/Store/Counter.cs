@@ -18,10 +18,10 @@ public class Counter : MonoBehaviour
             }
         }
 
-        if (other.TryGetComponent(out Customer customer))
-        {
-            // perform customer logic
-        }
+        //if (other.TryGetComponent(out Customer customer))
+        //{
+        //    // perform customer logic
+        //}
     }
 
     private void OnTriggerExit(Collider other)

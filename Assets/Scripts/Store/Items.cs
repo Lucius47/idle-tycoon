@@ -13,6 +13,7 @@ public class Items : ScriptableObject
     [Space]
     [SerializeField] private StationSpawner shoeShelfPrefab;
     [SerializeField] private StationSpawner counterPrefab;
+    [SerializeField] private CashPile cashPilePrefab;
 
     #region Instance
     private static Items _instance;
@@ -62,5 +63,10 @@ public class Items : ScriptableObject
             Station.StationType.Counter => counterPrefab,
             _ => null,
         };
+    }
+
+    public CashPile GetCashPile()
+    {
+        return cashPilePrefab;
     }
 }

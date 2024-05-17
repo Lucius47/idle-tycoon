@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 473931235355075666}
   - component: {fileID: 1135950232945935960}
   - component: {fileID: 9089542981998956301}
+  - component: {fileID: 2719355259742028176}
   m_Layer: 0
   m_Name: CashPile
   m_TagString: Untagged
@@ -51,7 +52,7 @@ MonoBehaviour:
   cashOrigin: {fileID: 2767690081625798998}
   cashPileSize: {x: 5, y: 5}
   gap: {x: 0.21, y: 0.2, z: 0.51}
-  xxx: 100
+  DestroyOnEmpty: 0
 --- !u!65 &9089542981998956301
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73,6 +74,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.7194812, y: 0.5822173, z: 1.2926317}
   m_Center: {x: -1.043614e-15, y: 0.20889136, z: -0.5734377}
+--- !u!114 &2719355259742028176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122082526909851918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd37a638fafae1419e4633fa98d67a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 4028685180803689220}
 --- !u!1 &1640758462596993190
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +190,7 @@ GameObject:
   - component: {fileID: 978322299301066378}
   - component: {fileID: 5206632355637527198}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6666667, g: 0.6666667, b: 0.6666667, a: 0.6666667}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
