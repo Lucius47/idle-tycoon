@@ -13,11 +13,11 @@ public class CashPile : MonoBehaviour
 
     [SerializeField] private bool DestroyOnEmpty = false;
 
-    public int xxx = 5;
+    public int amount = 5;
 
     private void Start()
     {
-        AddCashInstantly(xxx);
+        AddCashInstantly(amount);
     }
 
     public int GetCash(out Vector3 lastCashPos)
