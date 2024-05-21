@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GenericItemsHolder : MonoBehaviour
 {
-    public Items.ItemType Type;
+    public Item item;
     public int numOfItems;
 
     [SerializeField] private Transform[] itemsHolds;
@@ -14,18 +14,18 @@ public class GenericItemsHolder : MonoBehaviour
 
     public bool supplier = false;
 
-    private List<GameObject> heldItems = new();
+    private List<Item> heldItems = new();
 
-    public bool AddItem(Items.ItemType _type, out Transform addedTrans)
+    public bool AddItem(Item _item, out Transform addedTrans)
     {
-        if (Type != _type)
+        if (item.itemType != _item.itemType)
         {
             //Wrong type
             addedTrans = null;
             return false;
         }
 
-        heldItems ??= new List<GameObject>();
+        heldItems ??= new List<Item>();
 
 
         if (heldItems.Count + 1 > itemsHolds.Length * itemsPerRow)
@@ -39,31 +39,39 @@ public class GenericItemsHolder : MonoBehaviour
         {
             if (row.childCount < itemsPerRow)
             {
-                GameObject item = Instantiate(Items.Instance.GetItem(_type), row.position, row.rotation, row);
-                item.transform.localPosition = new Vector3(
-                    (row.childCount - 1) * gap * (stackingDirection == StackingDirection.X ? 1 : 0),
-                    (row.childCount - 1) * gap * (stackingDirection == StackingDirection.Y ? 1 : 0),
-                    (row.childCount - 1) * gap * (stackingDirection == StackingDirection.Z ? 1 : 0));
-                heldItems.Add(item);
+                //Item item = Instantiate(Items.Instance.GetItem(_item), row.position, row.rotation, row);
+                //item.transform.localPosition = new Vector3(
+                //    (row.childCount - 1) * gap * (stackingDirection == StackingDirection.X ? 1 : 0),
+                //    (row.childCount - 1) * gap * (stackingDirection == StackingDirection.Y ? 1 : 0),
+                //    (row.childCount - 1) * gap * (stackingDirection == StackingDirection.Z ? 1 : 0));
+
+                var newItem = new Item(_item.itemType, row.position, row.rotation, row);
+
+                newItem.itemTransform.localPosition = new Vector3(
+                        (row.childCount - 1) * gap * (stackingDirection == StackingDirection.X ? 1 : 0),
+                        (row.childCount - 1) * gap * (stackingDirection == StackingDirection.Y ? 1 : 0),
+                        (row.childCount - 1) * gap * (stackingDirection == StackingDirection.Z ? 1 : 0));
+
+                heldItems.Add(newItem);
                 numOfItems++;
                 break;
             }
         }
 
-        addedTrans = heldItems[^1].transform;
+        addedTrans = heldItems[^1].itemTransform;
         return true;
     }
 
-    public bool RemoveItem(Items.ItemType _type, out Transform removedTrans)
+    public bool RemoveItem(Item _item, out Transform removedTrans)
     {
-        if (Type != _type || numOfItems < 1)
+        if (item != _item || numOfItems < 1)
         {
             removedTrans = null;
             return false;
         }
 
-        var lastItemTransform = heldItems[^1].transform;
-        Destroy(heldItems[^1]);
+        var lastItemTransform = heldItems[^1].itemTransform;
+        Destroy(heldItems[^1].itemTransform.gameObject);
         heldItems.RemoveAt(heldItems.Count - 1);
         numOfItems--;
         removedTrans = lastItemTransform;
@@ -73,12 +81,12 @@ public class GenericItemsHolder : MonoBehaviour
     // Testing
     public void AddItemBtn()
     {
-        AddItem(Type, out Transform _);
+        AddItem(item, out Transform _);
     }
 
     public void RemoveItemBtn()
     {
-        RemoveItem(Type, out Transform _);
+        RemoveItem(item, out Transform _);
     }
 
 
@@ -99,11 +107,11 @@ public class GenericItemsHolder : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    AddItem(Type, out Transform _);
+                    AddItem(item, out Transform _);
                 }
                 if (Input.GetKeyDown(KeyCode.Backspace))
                 {
-                    RemoveItem(Type, out Transform _);
+                    RemoveItem(item, out Transform _);
                 }
             }
         }
@@ -113,7 +121,7 @@ public class GenericItemsHolder : MonoBehaviour
     {
         while (true)
         {
-            AddItem(Type, out Transform _);
+            AddItem(item, out Transform _);
             yield return new WaitForSeconds(2f);
         }
     }

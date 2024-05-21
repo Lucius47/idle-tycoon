@@ -46,22 +46,24 @@ public class ItemsExchanger : MonoBehaviour
         {
             if (supplier.numOfItems > 0)
             {
-                if (receiver.AddItem(supplier.Type, out Transform addedTrans))
+                if (receiver.AddItem(supplier.item, out Transform addedTrans))
                 {
-                    supplier.RemoveItem(supplier.Type, out Transform removedTrans);
+                    supplier.RemoveItem(supplier.item, out Transform removedTrans);
                     VibrationManager.Vibrate(50);
 
                     // play transfer animation. Spawn an item. Move it to the other holder. Destroy it.
-                    var item = Instantiate(Items.Instance.GetItem(supplier.Type), removedTrans.position, removedTrans.rotation);
+                    //var item = Instantiate(Items.Instance.GetItem(supplier.item), removedTrans.position, removedTrans.rotation);
 
-                    item.transform.DOPath(
+                    var item = new Item(supplier.item.itemType, removedTrans.position, removedTrans.rotation);
+
+                    item.itemTransform.DOPath(
                     new Vector3[] {
                         removedTrans.position,
                         new Vector3(((removedTrans.position + addedTrans.position) / 2).x,
                             ((removedTrans.position + addedTrans.position) / 2).y + 1.5f,
                             ((removedTrans.position + addedTrans.position) / 2).z),
                         addedTrans.position
-                    }, animationTime).OnComplete(() => Destroy(item));
+                    }, animationTime).OnComplete(() => Destroy(item.itemTransform.gameObject));
                 }
             }
             yield return new WaitForSeconds(delayPerExchange);
