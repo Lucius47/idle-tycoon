@@ -45,11 +45,12 @@ public class CashPile : MonoBehaviour
         }
     }
 
+    int x = 0;
+    int y = 0;
+    int z = 0;
     public void AddCashInstantly(int amount)
     {
-        int x = 0;
-        int y = 0;
-        int z = 0;
+        
         for (int i = 0; i < amount; i++)
         {
             GameObject cash = Instantiate(cashPrefab, transform.position, Quaternion.identity, cashOrigin);
