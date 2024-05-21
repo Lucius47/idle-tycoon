@@ -48,6 +48,7 @@ public class CashPile : MonoBehaviour
     int x = 0;
     int y = 0;
     int z = 0;
+
     public void AddCashInstantly(int amount)
     {
         
