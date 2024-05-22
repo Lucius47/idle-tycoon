@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a32167f25ae4b408cadf7d6b5f7f12, type: 3}
   m_Name: Items
   m_EditorClassIdentifier: 
-  shoesPrefab: {fileID: 8232069356761695004, guid: c9232c547f4178647b47d2808555da6a, type: 3}
+  shoesPrefab: {fileID: 154475840694115007, guid: c9232c547f4178647b47d2808555da6a, type: 3}
   clothes:
     itemType: 0
     itemTransform: {fileID: 0}

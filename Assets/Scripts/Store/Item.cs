@@ -11,13 +11,20 @@ public class Item
     {
         this.itemType = itemType;
 
-        GameObject gameObject = GameObject.Instantiate(Items.Instance.GetItem(itemType), position, rotation);
+
+        ItemMono itemMono = GameObject.Instantiate(Items.Instance.GetItem(itemType), position, rotation);
+        itemMono.SetUp();
 
         if (itemParent != null)
         {
-            gameObject.transform.parent = itemParent;
+            itemMono.transform.SetParent(itemParent);
         }
 
-        itemTransform = gameObject.transform;
+        itemTransform = itemMono.transform;
+    }
+
+    public void UpdateParent(Transform itemParent)
+    {
+        itemTransform.parent = itemParent;
     }
 }

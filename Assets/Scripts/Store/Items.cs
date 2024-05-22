@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class Items : ScriptableObject
 {
-    [SerializeField] private GameObject shoesPrefab;
+    [SerializeField] private ItemMono shoesPrefab;
     //private HashSet<Item> sellableItems = new HashSet<Item>();
     [SerializeField] private Item clothes;
     [SerializeField] private Item hats;
@@ -47,7 +47,7 @@ public class Items : ScriptableObject
         Hats
     }
 
-    public GameObject GetItem(ItemType type)
+    public ItemMono GetItem(ItemType type)
     {
         return shoesPrefab;
     }
