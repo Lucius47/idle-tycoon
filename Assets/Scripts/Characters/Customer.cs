@@ -8,7 +8,7 @@ public class Customer : MonoBehaviour
     [SerializeField] private Transform itemTransform;
 
     private NPCMovement npcMovement;
-    private Item currentItem;
+    private Items.ItemType currentItemType;
 
     private string[] nickNames;
     private string nickName;
@@ -183,19 +183,22 @@ public class Customer : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f); // Wait for a bit before trying again
 
+            var itemForAnimation = currentShelfStationItemsHolder.RemoveItem(currentShelfStationItemsHolder.itemType);
+
+
             // Attempt to remove an item from the shelf
-            if (currentShelfStationItemsHolder.RemoveItem(currentShelfStationItemsHolder.item, out Transform removedTrans))
+            if (itemForAnimation != null)
             {
                 // for the animation, spawn an item, move it to the player, destroy it
                 //var itemForAnim = Instantiate(Items.Instance.GetItem(currentShelfStationItemsHolder.item), removedTrans.position, removedTrans.rotation);
                 
-                var itemForAnimation = new Item(currentShelfStationItemsHolder.item.itemType, removedTrans.position, removedTrans.rotation);
+                //var itemForAnimation = new Item(currentShelfStationItemsHolder.item.itemType, removedTrans.position, removedTrans.rotation);
 
                 itemForAnimation.itemTransform.DOMove(itemTransform.position, 0.5f).OnComplete(() => Destroy(itemForAnimation.itemTransform.gameObject));
 
-                currentItem = currentShelfStationItemsHolder.item;
+                currentItemType = currentShelfStationItemsHolder.itemType;
                 // Instantiate(Items.Instance.GetItem(currentItem), itemTransform.position, itemTransform.rotation, itemTransform);
-                var createdItem = new Item(currentItem.itemType, itemTransform.position, itemTransform.rotation, itemTransform);
+                var createdItem = new Item(currentItemType, itemTransform.position, itemTransform.rotation, itemTransform);
 
                 hasItem2 = true; // Item successfully obtained
             }
