@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu()]
 public class Items : ScriptableObject
 {
-    [SerializeField] private GameObject shoes;
-    [SerializeField] private GameObject clothes;
-    [SerializeField] private GameObject hats;
+    [SerializeField] private ItemMono shoesPrefab;
+    //private HashSet<Item> sellableItems = new HashSet<Item>();
+    [SerializeField] private Item clothes;
+    [SerializeField] private Item hats;
 
     public GameObject boxPrefab;
     public GameObject cashPrefab;
@@ -25,6 +27,11 @@ public class Items : ScriptableObject
             if (_instance == null)
             {
                 _instance = Resources.Load<Items>("Items") as Items;
+
+                //foreach (var item in _instance.itemsArray)
+                //{
+                //    _instance.sellableItems.Add(item);
+                //}
             }
             return _instance;
         }
@@ -40,19 +47,9 @@ public class Items : ScriptableObject
         Hats
     }
 
-    public GameObject GetItem(ItemType type)
+    public ItemMono GetItem(ItemType type)
     {
-        switch (type)
-        {
-            case ItemType.Shoes:
-                return shoes;
-            case ItemType.Clothes:
-                return clothes;
-            case ItemType.Hats:
-                return hats;
-            default:
-                return null;
-        }
+        return shoesPrefab;
     }
 
     public StationSpawner GetStation(Station.StationType stationType)

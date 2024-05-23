@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61762a85cc444140b28897492b1973e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stationName: 
   station: {fileID: 8499754467162491328}
   stationOrigin: {fileID: 3347825639654090366}
   fillImage: {fileID: 4419989664359754586}
@@ -1044,7 +1045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018a66111bca8ef4ca653e0d5d04656e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  item: {fileID: 179010691738305498, guid: c9232c547f4178647b47d2808555da6a, type: 3}
   numOfItems: 0
   itemsHolds:
   - {fileID: 3556439455921996883}

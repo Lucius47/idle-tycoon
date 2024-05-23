@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a32167f25ae4b408cadf7d6b5f7f12, type: 3}
   m_Name: Items
   m_EditorClassIdentifier: 
-  shoes: {fileID: 8232069356761695004, guid: c9232c547f4178647b47d2808555da6a, type: 3}
-  clothes: {fileID: 0}
-  hats: {fileID: 0}
+  shoesPrefab: {fileID: 154475840694115007, guid: c9232c547f4178647b47d2808555da6a, type: 3}
+  clothes:
+    itemType: 0
+    itemTransform: {fileID: 0}
+  hats:
+    itemType: 0
+    itemTransform: {fileID: 0}
   boxPrefab: {fileID: 653151075262306277, guid: 112df12703ee0794c8a7a29e9c959abb, type: 3}
   cashPrefab: {fileID: 312041562796361492, guid: ec7a66ffbd96f814f9a6be10890ee4dc, type: 3}
   shoeShelfPrefab: {fileID: 4925078749617695836, guid: 4600809c7c5b64b449ea55fc6c3f3d71, type: 3}
