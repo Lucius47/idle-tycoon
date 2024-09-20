@@ -89,7 +89,8 @@ public class Station : MonoBehaviour
 
     public enum StationType
     {
-        Shelf,
+        ShoesShelf,
+        ShirtsStand,
         Counter,
     }
 

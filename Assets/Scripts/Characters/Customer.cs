@@ -108,7 +108,9 @@ public class Customer : MonoBehaviour
         {
             foreach (StoreManager.StationHolder stationHolder in StoreManager.Instance.Stations)
             {
-                if (stationHolder.station.stationType == Station.StationType.Shelf && stationHolder.station.IsAnySpotAvailable())
+                if ((stationHolder.station.stationType == Station.StationType.ShoesShelf 
+                    || stationHolder.station.stationType == Station.StationType.ShirtsStand)
+                    && stationHolder.station.IsAnySpotAvailable())
                 {
                     currentShelf = stationHolder.station;
                     break;

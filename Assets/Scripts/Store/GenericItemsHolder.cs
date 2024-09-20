@@ -21,7 +21,6 @@ public class GenericItemsHolder : MonoBehaviour
     {
         if (itemType != _itemType)
         {
-            //Wrong type
             return false;
         }
 
@@ -30,7 +29,6 @@ public class GenericItemsHolder : MonoBehaviour
 
         if (heldItems.Count + 1 > itemsHolds.Length * itemsPerRow)
         {
-            Debug.LogError("Not enough rows for this amount of items " + this.transform.name);
             return false;
         }
 
@@ -58,7 +56,6 @@ public class GenericItemsHolder : MonoBehaviour
     {
         if (itemType != _item.itemType)
         {
-            //Wrong type
             return false;
         }
 
@@ -67,7 +64,6 @@ public class GenericItemsHolder : MonoBehaviour
 
         if (heldItems.Count + 1 > itemsHolds.Length * itemsPerRow)
         {
-            //Debug.LogError("Not enough rows for this amount of items " + this.transform.name);
             return false;
         }
 
@@ -82,8 +78,6 @@ public class GenericItemsHolder : MonoBehaviour
                 //                   (row.childCount - 1) * gap * (stackingDirection == StackingDirection.X ? 1 : 0),
                 //                   (row.childCount - 1) * gap * (stackingDirection == StackingDirection.Y ? 1 : 0),
                 //                   (row.childCount - 1) * gap * (stackingDirection == StackingDirection.Z ? 1 : 0));
-
-                // use DoTween to move the item to the new position
 
                 var newPos = 
                     new Vector3(
@@ -118,27 +112,12 @@ public class GenericItemsHolder : MonoBehaviour
             return null;
         }
 
-        //var lastItemTransform = heldItems[^1].itemTransform;
-        //Destroy(heldItems[^1].itemTransform.gameObject);
         numOfItems--;
-        //removedTrans = lastItemTransform;
 
         var removedItem = heldItems[^1];
         heldItems.RemoveAt(heldItems.Count - 1);
         return removedItem;
-        //return true;
     }
-
-    //// Testing
-    //public void AddItemBtn()
-    //{
-    //    AddItem(itemType, out Transform _);
-    //}
-
-    //public void RemoveItemBtn()
-    //{
-    //    RemoveItem(itemType, out Transform _);
-    //}
 
 
     private void Start()
@@ -149,25 +128,6 @@ public class GenericItemsHolder : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    if (Physics.Raycast(ray, out RaycastHit hit))
-    //    {
-    //        if (hit.collider.gameObject == gameObject)
-    //        {
-    //            if (Input.GetKeyDown(KeyCode.Space))
-    //            {
-    //                AddItem(itemType, out Transform _);
-    //            }
-    //            if (Input.GetKeyDown(KeyCode.Backspace))
-    //            {
-    //                RemoveItem(itemType, out Transform _);
-    //            }
-    //        }
-    //    }
-    //}
-
     private IEnumerator AddItemsPerTime()
     {
         while (true)
@@ -176,8 +136,6 @@ public class GenericItemsHolder : MonoBehaviour
             AddItem(itemType);
         }
     }
-
-    // Testing
 
     private enum StackingDirection
     {

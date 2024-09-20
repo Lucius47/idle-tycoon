@@ -28,14 +28,25 @@ MonoBehaviour:
       isBuilt: 0
     - cost: 25
       name: counter1
-      stationType: 1
+      stationType: 2
       position: {x: 6.62, y: 0, z: -5.91}
       rotation: {x: 0, y: 0, z: 0, w: 0}
       isBuilt: 0
+    - cost: 25
+      name: shirtsStand1
+      stationType: 1
+      position: {x: -12, y: 0, z: 3}
+      rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+      isBuilt: 0
+    - cost: 25
+      name: supplierShirtsStand1
+      stationType: 1
+      position: {x: -9, y: 0, z: -9}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+      isBuilt: 0
     cashPileHolders:
-    - amount: 100
+    - amount: 150
       destroyOnEmpty: 1
       name: cashPile1
       position: {x: 2.25, y: 0, z: 3.5}
       rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
-      isBuilt: 0

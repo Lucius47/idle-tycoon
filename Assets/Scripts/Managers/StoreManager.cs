@@ -44,7 +44,9 @@ public class StoreManager : MonoBehaviour
 
             foreach (StationHolder stationHolder in Stations)
             {
-                if (stationHolder.station.stationType == Station.StationType.Shelf && stationHolder.station.IsAnySpotAvailable())
+                if ((stationHolder.station.stationType == Station.StationType.ShoesShelf
+                    || stationHolder.station.stationType == Station.StationType.ShirtsStand)
+                    && stationHolder.station.IsAnySpotAvailable())
                 {
                     Instantiate(customerPrefab, storeEntrance.position, storeEntrance.rotation);
                     break;

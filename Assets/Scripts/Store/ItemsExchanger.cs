@@ -50,19 +50,10 @@ public class ItemsExchanger : MonoBehaviour
 
                 if (item != null)
                 {
-                    if (receiver.AddItem(item/*, out Transform _newPos*/))
+                    if (receiver.AddItem(item))
                     {
+                        item.Exchange();
                         VibrationManager.Vibrate(50);
-
-                        //item.itemTransform.DOPath(
-                        //new Vector3[] {
-                        //    item.itemTransform.position,
-                        //    new Vector3(((item.itemTransform.position + _newPos.position) / 2).x,
-                        //        ((item.itemTransform.position + _newPos.position) / 2).y + 1.5f,
-                        //        ((item.itemTransform.position + _newPos.position) / 2).z),
-                        //    _newPos.position
-                        //}
-                        //, animationTime)/*.OnComplete(() => Destroy(item.itemTransform.gameObject))*/;
                     }
                 }
             }
