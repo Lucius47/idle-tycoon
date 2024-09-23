@@ -141,4 +141,14 @@ public class GenericItemsHolder : MonoBehaviour
     {
         X, Y, Z,
     }
+
+    internal bool IsFull()
+    {
+        return heldItems.Count >= itemsHolds.Length * itemsPerRow;
+    }
+
+    internal bool IsEmpty()
+    {
+        return heldItems.Count == 0;
+    }
 }

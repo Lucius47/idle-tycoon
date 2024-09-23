@@ -44,9 +44,9 @@ public class ItemsExchanger : MonoBehaviour
     {
         while (otherHolder)
         {
-            if (supplier.numOfItems > 0)
+            if (supplier.numOfItems > 0 && !receiver.IsFull())// TODO: Use !supplier.IsEmpty()
             {
-                var item = supplier.RemoveItem(supplier.itemType);
+                var item = supplier.RemoveItem(receiver.itemType);
 
                 if (item != null)
                 {
