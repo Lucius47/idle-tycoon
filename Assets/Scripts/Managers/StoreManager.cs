@@ -13,6 +13,7 @@ public class StoreManager : MonoBehaviour
     public static StoreManager Instance { get; private set; }
     public List<StationHolder> Stations = new();
 
+    [SerializeField] private bool letCustomersIn = true;
     [SerializeField] private GameObject customerPrefab;
     [SerializeField] private Transform storeEntrance;
     public Transform storeExit;
@@ -38,7 +39,7 @@ public class StoreManager : MonoBehaviour
 
     private IEnumerator SpawnCustomers()
     {
-        while (true)
+        while (letCustomersIn)
         {
             yield return new WaitForSeconds(10);
 
