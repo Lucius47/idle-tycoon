@@ -51,7 +51,7 @@ public class Counter : Station
         return false;
     }
 
-    internal bool HasWorker()
+    internal override bool HasWorker()
     {
         return isWorkerPresent;
     }

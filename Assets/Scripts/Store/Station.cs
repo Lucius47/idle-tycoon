@@ -105,9 +105,21 @@ public class Station : MonoBehaviour, IShelf
         return false;
     }
 
+    internal virtual bool HasWorker()
+    {
+        return false;
+    }
+
     public bool IsSupplyShelf()
     {
-        return GetComponent<GenericItemsHolder>().supplier;
+        if (TryGetComponent<GenericItemsHolder>(out var holder))
+        {
+            return holder.supplier;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public enum StationType
