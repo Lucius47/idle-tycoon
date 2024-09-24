@@ -40,7 +40,7 @@ public class CashierNPC : MonoBehaviour
 
     private IEnumerator LookForCounter()
     {
-        while (currentCounter == null)
+        if (currentCounter == null)
         {
             var allCounters = FindObjectsByType<Counter>(FindObjectsSortMode.None);
             foreach (Counter counter in allCounters)
@@ -60,7 +60,9 @@ public class CashierNPC : MonoBehaviour
             }
             else
             {
-                yield return new WaitForSeconds(1f); // Wait and then continue the loop
+                yield return new WaitForSeconds(1f);
+                StockerLoop();
+                yield break;
             }
         }
 
@@ -117,6 +119,8 @@ public class CashierNPC : MonoBehaviour
         AtTheCounter
     }
 
+    private Station currentTarget;
+
     private void StockerLoop()
     {
         switch (stockerState)
@@ -146,38 +150,74 @@ public class CashierNPC : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    private IEnumerator GotoSupplyShelf()
-    {
-        throw new NotImplementedException();
-    }
-
     private IEnumerator LookForSupplyShelf()
     {
-        yield break;
-        //while (currentCounter == null)
-        //{
-        //    foreach (StationHolder stationHolder in StoreManager.Instance.Stations)
-        //    {
-        //        if ((stationHolder.station.stationType == Station.StationType.ShoesShelf
-        //            || stationHolder.station.stationType == Station.StationType.ShirtsStand)
-        //            && stationHolder.station.())
-        //        {
-        //            currentCounter = counter;
-        //            break;
-        //        }
-        //    }
+        while (currentTarget == null)
+        {
+            foreach (StationHolder stationHolder in StoreManager.Instance.Stations)
+            {
+                if ((stationHolder.station.stationType == Station.StationType.ShoesShelf
+                    || stationHolder.station.stationType == Station.StationType.ShirtsStand)
+                    && stationHolder.station.IsSupplyShelf())
+                {
+                    currentTarget = stationHolder.station;
+                    break;
+                }
+            }
 
-        //    if (currentCounter)
-        //    {
-        //        cashierState++;
-        //        CashierLoop();
-        //        yield break; // Exits the coroutine
-        //    }
-        //    else
-        //    {
-        //        yield return new WaitForSeconds(1f); // Wait and then continue the loop
-        //    }
-        //}
+            if (currentTarget)
+            {
+                stockerState++;
+                StockerLoop();
+                yield break; // Exits the coroutine
+            }
+            else
+            {
+                yield return new WaitForSeconds(1f); // Wait and then continue the loop
+            }
+        }
+    }
+
+    private IEnumerator GotoSupplyShelf()
+    {
+        bool isProcessing = true;
+
+        while (isProcessing)
+        {
+            if (currentTarget)
+            {
+                var target = currentTarget.GetWorkerPosition();
+
+                if (target)
+                {
+                    // Set the target and use a callback to update the state and break the loop
+                    npcMovement.SetTarget(target, () =>
+                    {
+                        stockerState++;
+                        isProcessing = false; // Break the loop
+                    });
+
+                    // Wait for the callback to be called before proceeding
+                    yield return new WaitUntil(() => !isProcessing);
+                }
+                else
+                {
+                    currentTarget = null;
+                    stockerState--;
+                    yield return new WaitForSeconds(0.5f); // Wait before the next iteration
+                }
+            }
+            else
+            {
+                stockerState--;
+                yield return new WaitForSeconds(0.5f); // Wait before the next iteration
+            }
+
+            // Check if we need to break the loop or continue
+            isProcessing = currentTarget != null && isProcessing;
+        }
+
+        StockerLoop(); // Call MainLoop after breaking out of the loop
     }
 
     private enum StockerState : byte
