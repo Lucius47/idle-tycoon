@@ -1,16 +1,15 @@
-using System;
 using UnityEngine;
 
-public class Counter : MonoBehaviour
+public class Counter : Station
 {
     [SerializeField] private CashPile cashPile; // This is the cash pile that the counter is associated with
-    [SerializeField] private Transform workerPosition;
 
     private StoreWorker currentWorker;
     private bool isWorkerPresent = false;
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
+        base.OnTriggerEnter(other);
         if (!isWorkerPresent)
         {
             if (other.TryGetComponent(out StoreWorker worker))
@@ -26,8 +25,9 @@ public class Counter : MonoBehaviour
         //}
     }
 
-    private void OnTriggerExit(Collider other)
+    protected override void OnTriggerExit(Collider other)
     {
+        base.OnTriggerExit(other);
         if (isWorkerPresent)
         {
             if (other.TryGetComponent(out StoreWorker worker))
@@ -46,7 +46,6 @@ public class Counter : MonoBehaviour
         if (isWorkerPresent && currentWorker != null)
         {
             cashPile.AddCashInstantly(10);
-            //PlayerStats.Cash += 10;
             return true;
         }
         return false;
@@ -55,10 +54,5 @@ public class Counter : MonoBehaviour
     internal bool HasWorker()
     {
         return isWorkerPresent;
-    }
-
-    internal Transform GetWorkerPosition()
-    {
-        return workerPosition;
     }
 }
