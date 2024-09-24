@@ -153,30 +153,31 @@ public class CashierNPC : MonoBehaviour
 
     private IEnumerator LookForSupplyShelf()
     {
+        yield break;
         //while (currentCounter == null)
-        {
-            foreach (StationHolder stationHolder in StoreManager.Instance.Stations)
-            {
-                if ((stationHolder.station.stationType == Station.StationType.ShoesShelf
-                    || stationHolder.station.stationType == Station.StationType.ShirtsStand)
-                    && stationHolder.station.())
-                {
-                    currentCounter = counter;
-                    break;
-                }
-            }
+        //{
+        //    foreach (StationHolder stationHolder in StoreManager.Instance.Stations)
+        //    {
+        //        if ((stationHolder.station.stationType == Station.StationType.ShoesShelf
+        //            || stationHolder.station.stationType == Station.StationType.ShirtsStand)
+        //            && stationHolder.station.())
+        //        {
+        //            currentCounter = counter;
+        //            break;
+        //        }
+        //    }
 
-            if (currentCounter)
-            {
-                cashierState++;
-                CashierLoop();
-                yield break; // Exits the coroutine
-            }
-            else
-            {
-                yield return new WaitForSeconds(1f); // Wait and then continue the loop
-            }
-        }
+        //    if (currentCounter)
+        //    {
+        //        cashierState++;
+        //        CashierLoop();
+        //        yield break; // Exits the coroutine
+        //    }
+        //    else
+        //    {
+        //        yield return new WaitForSeconds(1f); // Wait and then continue the loop
+        //    }
+        //}
     }
 
     private enum StockerState : byte
