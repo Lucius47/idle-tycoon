@@ -97,6 +97,14 @@ public class StoreManager : MonoBehaviour
                     position = stationHolderX.position, rotation = stationHolderX.rotation });
             }
         }
+
+        if (storeX.numberOfWorkers > 0)
+        {
+            for (int i = 0; i < storeX.numberOfWorkers; i++)
+            {
+                StoreUpgrades.Instance.HireWorker();
+            }
+        }
     }
 
     public void AddStation(Station _station, Vector3 _position, Quaternion _rotation, string _name)
@@ -118,6 +126,15 @@ public class StoreManager : MonoBehaviour
         System.IO.File.WriteAllText(Application.persistentDataPath + "/Store1.json", json);
     }
 
+    public void AddWorker()
+    {
+        StoreX storeX = JsonUtility.FromJson<StoreX>(System.IO.File.ReadAllText(Application.persistentDataPath + "/Store1.json"));
+        storeX.numberOfWorkers++;
+
+        string json = JsonUtility.ToJson(storeX);
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/Store1.json", json);
+    }
+
     [Serializable]
     public class StationHolder
     {
@@ -132,6 +149,7 @@ public class StoreX
 {
     public List<StationHolderX> stations = new();
     public List<CashPileHolder> cashPileHolders = new();
+    public int numberOfWorkers;
 }
 
 [Serializable]

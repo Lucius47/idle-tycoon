@@ -12,7 +12,7 @@ public class NPCMovement : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    void Start()
+    private void Start()
     {
         if (!animator)
         {
@@ -30,9 +30,9 @@ public class NPCMovement : MonoBehaviour
         reachedTarget = _reachedTarget;
     }
 
-    void Update()
+    private void Update()
     {
-        Animates();
+        Animate();
 
         if (target == null)
         {
@@ -54,7 +54,7 @@ public class NPCMovement : MonoBehaviour
     }
 
 
-    private void Animates()
+    private void Animate()
     {
         animator.SetFloat("Speed", agent.velocity.magnitude);
     }

@@ -50,3 +50,4 @@ MonoBehaviour:
       name: cashPile1
       position: {x: 2.25, y: 0, z: 3.5}
       rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+    numberOfWorkers: 0

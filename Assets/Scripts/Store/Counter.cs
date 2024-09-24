@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
     [SerializeField] private CashPile cashPile; // This is the cash pile that the counter is associated with
+    [SerializeField] private Transform workerPosition;
 
     private StoreWorker currentWorker;
     private bool isWorkerPresent = false;
@@ -48,5 +50,15 @@ public class Counter : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    internal bool HasWorker()
+    {
+        return isWorkerPresent;
+    }
+
+    internal Transform GetWorkerPosition()
+    {
+        return workerPosition;
     }
 }
