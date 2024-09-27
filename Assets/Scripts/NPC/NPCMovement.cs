@@ -47,13 +47,12 @@ public class NPCMovement : MonoBehaviour
             if (reachedTarget != null)
             {
                 reachedTarget.Invoke();
-                reachedTarget = null;
+                //reachedTarget = null; // Was causing the worker to stop moving after reaching the 2nd target
             }
         }
 
         Debug.DrawLine(transform.position, target.position, Color.red);
 
-        Debug.Log("reachedTarget: " + reachedTarget.ToString());
     }
 
 
