@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using static StoreManager;
 
 [RequireComponent(typeof(NPCMovement))]
 public class CashierNPC : MonoBehaviour

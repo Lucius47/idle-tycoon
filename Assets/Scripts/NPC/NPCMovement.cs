@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class NPCMovement : MonoBehaviour
 {
     private Transform target;
@@ -12,7 +13,7 @@ public class NPCMovement : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    private void Start()
+    protected virtual void Awake()
     {
         if (!animator)
         {
@@ -51,6 +52,8 @@ public class NPCMovement : MonoBehaviour
         }
 
         Debug.DrawLine(transform.position, target.position, Color.red);
+
+        Debug.Log("reachedTarget: " + reachedTarget.ToString());
     }
 
 
