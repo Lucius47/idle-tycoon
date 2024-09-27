@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Station : MonoBehaviour, IShelf
@@ -119,6 +120,19 @@ public class Station : MonoBehaviour, IShelf
         else
         {
             return false;
+        }
+    }
+
+    public Items.ItemType GetItemType()
+    {
+        if (TryGetComponent<GenericItemsHolder>(out var holder))
+        {
+            return holder.itemType;
+        }
+        else
+        {
+            Debug.LogError("No GenericItemsHolder found on " + gameObject.name);
+            throw new NotImplementedException();
         }
     }
 

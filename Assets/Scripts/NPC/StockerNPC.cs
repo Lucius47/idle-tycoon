@@ -10,80 +10,42 @@ public class StockerNPC : NPCMovement
     // Put item on the shelf
     // Repeat
 
-    private State state;
-    private Station targetSupplyShelf;
     private Station targetShelf;
-    private GenericItemsHolder itemsHolder;
+    private GenericItemsHolder myHolder;
 
     private void Start()
     {
-        state = State.LookingForSupplyShelf;
-        MainLoop();
+        StartCoroutine(LookForSupplyShelf());
     }
 
-    private void MainLoop()
-    {
-        switch (state)
-        {
-            case State.LookingForSupplyShelf:
-                StartCoroutine(LookForSupplyShelf());
-                break;
-            case State.GoingToSupplyShelf:
-                StartCoroutine(GoToSupplyShelf());
-                break;
-            case State.LookingForShelf:
-                StartCoroutine(LookForShelf());
-                break;
-            case State.GoingToShelf:
-                GoToShelf();
-                break;
-        }
-    }
 
     private IEnumerator LookForSupplyShelf()
     {
-        while (targetSupplyShelf == null)
+        while (targetShelf == null)
         {
             var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
             foreach (Station station in allStations)
             {
                 if (!station.HasWorker() && station.IsSupplyShelf())
                 {
-                    targetSupplyShelf = station;
+                    targetShelf = station;
                     break;
                 }
             }
 
-            if (targetSupplyShelf)
+            if (targetShelf)
             {
-                state++;
-                MainLoop();
+                SetTarget(targetShelf.GetWorkerPosition(), () =>
+                {
+                    targetShelf = null;
+                    StartCoroutine(LookForShelf());
+                });
                 yield break;
             }
             else
             {
                 yield return new WaitForSeconds(1f);
             }
-        }
-    }
-
-    private IEnumerator GoToSupplyShelf()
-    {
-        //bool isProcessing = true;
-
-        //while (isProcessing)
-        {
-            if (targetSupplyShelf)
-            {
-                SetTarget(targetSupplyShelf.transform, () =>
-                {
-                    Debug.LogError("Taking item from supply shelf");
-                    state++;
-                    MainLoop();
-                });
-                //isProcessing = false;
-            }
-            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -94,7 +56,7 @@ public class StockerNPC : NPCMovement
             var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
             foreach (Station station in allStations)
             {
-                if (!station.HasWorker() && !station.IsSupplyShelf())
+                if (!station.HasWorker() && !station.IsSupplyShelf()/* && station.GetItemType() == myHolder.itemType*/)
                 {
                     targetShelf = station;
                     break;
@@ -103,8 +65,12 @@ public class StockerNPC : NPCMovement
 
             if (targetShelf)
             {
-                state++;
-                MainLoop();
+                SetTarget(targetShelf.transform, () =>
+                {
+                    Debug.LogError("Stocking item");
+                    targetShelf = null;
+                    StartCoroutine(LookForSupplyShelf());
+                });
                 yield break;
             }
             else
@@ -112,35 +78,5 @@ public class StockerNPC : NPCMovement
                 yield return new WaitForSeconds(1f);
             }
         }
-    }
-
-    private void GoToShelf()
-    {
-        //bool isProcessing = true;
-
-        //while (isProcessing)
-        {
-            if (targetShelf)
-            {
-                SetTarget(targetShelf.transform, () =>
-                {
-                    Debug.LogError("Stocking item");
-                    //state = State.LookingForSupplyShelf;
-                    //targetSupplyShelf = null;
-                    //targetShelf = null;
-                    //MainLoop();
-                });
-                //isProcessing = false;
-            }
-            //yield return new WaitForSeconds(1f);
-        }
-    }
-
-    private enum State : byte
-    {
-        LookingForSupplyShelf,
-        GoingToSupplyShelf,
-        LookingForShelf,
-        GoingToShelf,
     }
 }
