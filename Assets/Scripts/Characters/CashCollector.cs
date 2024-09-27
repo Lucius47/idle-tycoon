@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -36,8 +37,18 @@ public class CashCollector : MonoBehaviour
         {
             if (cashPile.Cash > 0)
             {
-                PlayerStats.Cash += cashPile.GetCash();
-                //Handheld.Vibrate();
+                PlayerStats.Cash += cashPile.GetCash(out Vector3 lastCashPos);
+
+                var cash = Instantiate(Items.Instance.cashPrefab, lastCashPos, Quaternion.identity);
+                cash.transform.DOPath(
+                    new Vector3[] { 
+                        lastCashPos, 
+                        new Vector3(((lastCashPos + transform.position) / 2).x, 
+                            ((lastCashPos + transform.position) / 2).y + 1.5f, // Add some height to the cash
+                            ((lastCashPos + transform.position) / 2).z), 
+                        transform.position 
+                    }, 0.2f).OnComplete(() => Destroy(cash));
+
                 VibrationManager.Vibrate(50);
             }
             yield return new WaitForSeconds(delayPerExchange);

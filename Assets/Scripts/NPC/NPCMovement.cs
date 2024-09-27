@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class NPCMovement : MonoBehaviour
 {
     private Transform target;
@@ -12,7 +13,7 @@ public class NPCMovement : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    void Start()
+    protected virtual void Awake()
     {
         if (!animator)
         {
@@ -30,9 +31,9 @@ public class NPCMovement : MonoBehaviour
         reachedTarget = _reachedTarget;
     }
 
-    void Update()
+    private void Update()
     {
-        Animates();
+        Animate();
 
         if (target == null)
         {
@@ -51,10 +52,12 @@ public class NPCMovement : MonoBehaviour
         }
 
         Debug.DrawLine(transform.position, target.position, Color.red);
+
+        Debug.Log("reachedTarget: " + reachedTarget.ToString());
     }
 
 
-    private void Animates()
+    private void Animate()
     {
         animator.SetFloat("Speed", agent.velocity.magnitude);
     }

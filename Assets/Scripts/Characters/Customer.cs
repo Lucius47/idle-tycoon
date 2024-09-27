@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class Customer : MonoBehaviour
     [SerializeField] private Transform itemTransform;
 
     private NPCMovement npcMovement;
-    private Items.ItemType currentItem;
+    private Items.ItemType currentItemType;
 
     private string[] nickNames;
     private string nickName;
@@ -105,11 +106,13 @@ public class Customer : MonoBehaviour
     {
         while (currentShelf == null)
         {
-            foreach (Station station in StoreManager.Instance.Stations)
+            foreach (StoreManager.StationHolder stationHolder in StoreManager.Instance.Stations)
             {
-                if (station.stationType == Station.StationType.Shelf && station.IsAnySpotAvailable())
+                if ((stationHolder.station.stationType == Station.StationType.ShoesShelf 
+                    || stationHolder.station.stationType == Station.StationType.ShirtsStand)
+                    && stationHolder.station.IsAnySpotAvailable())
                 {
-                    currentShelf = station;
+                    currentShelf = stationHolder.station;
                     break;
                 }
             }
@@ -138,7 +141,7 @@ public class Customer : MonoBehaviour
         {
             if (currentShelf)
             {
-                var target = currentShelf.GetWaitPoint();
+                var target = currentShelf.GetWaitPoint(this);
 
                 if (target)
                 {
@@ -182,11 +185,23 @@ public class Customer : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f); // Wait for a bit before trying again
 
+            var itemForAnimation = currentShelfStationItemsHolder.RemoveItem(currentShelfStationItemsHolder.itemType);
+
+
             // Attempt to remove an item from the shelf
-            if (currentShelfStationItemsHolder.RemoveItem(currentShelfStationItemsHolder.Type))
+            if (itemForAnimation != null)
             {
-                currentItem = currentShelfStationItemsHolder.Type;
-                Instantiate(Items.Instance.GetItem(currentItem), itemTransform.position, itemTransform.rotation, itemTransform);
+                // for the animation, spawn an item, move it to the player, destroy it
+                //var itemForAnim = Instantiate(Items.Instance.GetItem(currentShelfStationItemsHolder.item), removedTrans.position, removedTrans.rotation);
+                
+                //var itemForAnimation = new Item(currentShelfStationItemsHolder.item.itemType, removedTrans.position, removedTrans.rotation);
+
+                itemForAnimation.itemTransform.DOMove(itemTransform.position, 0.5f).OnComplete(() => Destroy(itemForAnimation.itemTransform.gameObject));
+
+                currentItemType = currentShelfStationItemsHolder.itemType;
+                // Instantiate(Items.Instance.GetItem(currentItem), itemTransform.position, itemTransform.rotation, itemTransform);
+                var createdItem = new Item(currentItemType, itemTransform.position, itemTransform.rotation, itemTransform);
+
                 hasItem2 = true; // Item successfully obtained
             }
             // If the item is not obtained, this loop will continue, effectively "browsing" again
@@ -210,11 +225,11 @@ public class Customer : MonoBehaviour
                 //    .OrderBy(x => Random.value)
                 //    .FirstOrDefault();
 
-                foreach (Station station in StoreManager.Instance.Stations)
+                foreach (StoreManager.StationHolder stationHolder in StoreManager.Instance.Stations)
                 {
-                    if (station.stationType == Station.StationType.Counter)
+                    if (stationHolder.station.stationType == Station.StationType.Counter)
                     {
-                        currentCounterStation = station;
+                        currentCounterStation = stationHolder.station;
                         break;
                     }
                 }
@@ -247,7 +262,7 @@ public class Customer : MonoBehaviour
         {
             if (currentCounterStation)
             {
-                var target = currentCounterStation.GetWaitPoint();
+                var target = currentCounterStation.GetWaitPoint(this);
 
                 if (target)
                 {
@@ -285,7 +300,7 @@ public class Customer : MonoBehaviour
     {
         if (currentCounterStation && currentCounterStation.IsCustomerPresent(this))
         {
-            Debug.LogError($"{nickName} is waiting in line");
+            // Debug.LogError($"{nickName} is waiting in line");
             state++;
             MainLoop();
         }

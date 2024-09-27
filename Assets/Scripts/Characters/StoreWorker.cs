@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StoreWorker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.TryGetComponent(out GenericItemsHolder holder))
+        {
+            if (TryGetComponent<GenericItemsHolder>(out var myHolder))
+            {
+                if (myHolder.numOfItems == 0)
+                {
+                    myHolder.itemType = holder.itemType;
+                }
+            }
+        }
     }
 }
