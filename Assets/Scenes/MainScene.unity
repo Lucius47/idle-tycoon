@@ -3683,7 +3683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stations: []
-  letCustomersIn: 0
+  letCustomersIn: 1
   customerPrefab: {fileID: 8612888259427650323, guid: 57db586970789ee46905f4b59efc71d7, type: 3}
   storeEntrance: {fileID: 1278881171}
   storeExit: {fileID: 1977158946}

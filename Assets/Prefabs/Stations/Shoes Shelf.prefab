@@ -1117,7 +1117,7 @@ MonoBehaviour:
   - {fileID: 3924000216820978423}
   - {fileID: 3191067452331422116}
   stationType: 0
-  workerPosition: {fileID: 0}
+  workerPosition: {fileID: 5426966578494552055}
 --- !u!54 &8361822492986233934
 Rigidbody:
   m_ObjectHideFlags: 0

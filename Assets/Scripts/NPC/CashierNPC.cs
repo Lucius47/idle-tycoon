@@ -16,7 +16,7 @@ public class CashierNPC : MonoBehaviour
 
     private void Start()
     {
-        state = State.LookingForStation;
+        state = State.LookingForCounter;
         MainLoop();
     }
 
@@ -24,18 +24,18 @@ public class CashierNPC : MonoBehaviour
     {
         switch (state)
         {
-            case State.LookingForStation:
-                StartCoroutine(LookForStation());
+            case State.LookingForCounter:
+                StartCoroutine(LookForCounter());
                 break;
-            case State.GoingToStation:
-                StartCoroutine(GotoStation());
+            case State.GoingToCounter:
+                StartCoroutine(GotoCounter());
                 break;
             case State.AtTheCounter:
                 break;
         }
     }
 
-    private IEnumerator LookForStation()
+    private IEnumerator LookForCounter()
     {
         while (targetStation == null)
         {
@@ -65,7 +65,7 @@ public class CashierNPC : MonoBehaviour
         //CashierLoop();
     }
 
-    private IEnumerator GotoStation()
+    private IEnumerator GotoCounter()
     {
         bool isProcessing = true;
 
@@ -87,10 +87,10 @@ public class CashierNPC : MonoBehaviour
                         {
                             // Stay at the counter.
                         }
-                        else
-                        {
-                            PerformStockerDuties();
-                        }
+                        //else
+                        //{
+                        //    PerformStockerDuties();
+                        //}
                     });
 
                     // Wait for the callback to be called before proceeding
@@ -116,31 +116,10 @@ public class CashierNPC : MonoBehaviour
         MainLoop(); // Call MainLoop after breaking out of the loop
     }
 
-    private void PerformStockerDuties()
-    {
-        var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
-        foreach (Station station in allStations)
-        {
-            if (!station.IsSupplyShelf())
-            {
-                var target = station.GetWorkerPosition();
-                if (target)
-                {
-                    npcMovement.SetTarget(target, () =>
-                    {
-                        state = State.LookingForStation;
-                        MainLoop();
-                    });
-                    break;
-                }
-            }
-        }
-    }
-
     private enum State : byte
     {
-        LookingForStation,
-        GoingToStation,
+        LookingForCounter,
+        GoingToCounter,
         AtTheCounter
     }
 }
