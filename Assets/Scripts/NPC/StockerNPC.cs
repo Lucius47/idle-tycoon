@@ -26,7 +26,7 @@ public class StockerNPC : NPCMovement
             var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
             foreach (Station station in allStations)
             {
-                if (!station.HasWorker() && station.IsSupplyShelf())
+                if (station is Shelf shelf && !station.HasWorker() && shelf.IsSupplyShelf())
                 {
                     targetShelf = station;
                     break;
@@ -56,7 +56,7 @@ public class StockerNPC : NPCMovement
             var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
             foreach (Station station in allStations)
             {
-                if (!station.HasWorker() && !station.IsSupplyShelf() && station is IShelf shelf/* && station.GetItemType() == myHolder.itemType*/)
+                if (station is Shelf shelf && !station.HasWorker() && !shelf.IsSupplyShelf()/* && station.GetItemType() == myHolder.itemType*/)
                 {
                     targetShelf = station;
                     break;

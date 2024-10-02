@@ -41,7 +41,7 @@ public class Customer : MonoBehaviour
         MainLoop();
     }
 
-    private enum State
+    private enum State : int
     {
         LookingForShelf,
         GoingToShelf,
@@ -108,9 +108,11 @@ public class Customer : MonoBehaviour
         {
             foreach (StoreManager.StationHolder stationHolder in StoreManager.Instance.Stations)
             {
-                if ((stationHolder.station.stationType == Station.StationType.ShoesShelf 
-                    || stationHolder.station.stationType == Station.StationType.ShirtsStand)
-                    && stationHolder.station.IsAnySpotAvailable())
+                if ((/*stationHolder.station.stationType == Station.StationType.ShoesShelf 
+                    || stationHolder.station.stationType == Station.StationType.ShirtsStand*/
+                    stationHolder.station is Shelf shelf)
+                    && stationHolder.station.IsAnySpotAvailable()
+                    && !shelf.IsSupplyShelf())
                 {
                     currentShelf = stationHolder.station;
                     break;
@@ -175,40 +177,38 @@ public class Customer : MonoBehaviour
         MainLoop(); // Call MainLoop after breaking out of the loop
     }
 
-    private bool hasItem2;
+    //private bool hasItem2;
     private IEnumerator BrowseItems()
     {
         var currentShelfStationItemsHolder = currentShelf.GetComponent<GenericItemsHolder>();
 
-        // Keep browsing items until an item is successfully obtained
-        while (!hasItem2)
+        //while (!hasItem2)
         {
-            yield return new WaitForSeconds(0.5f); // Wait for a bit before trying again
+            yield return new WaitForSeconds(0.5f);
 
             var itemForAnimation = currentShelfStationItemsHolder.RemoveItem(currentShelfStationItemsHolder.itemType);
 
-
-            // Attempt to remove an item from the shelf
             if (itemForAnimation != null)
             {
-                // for the animation, spawn an item, move it to the player, destroy it
-                //var itemForAnim = Instantiate(Items.Instance.GetItem(currentShelfStationItemsHolder.item), removedTrans.position, removedTrans.rotation);
-                
-                //var itemForAnimation = new Item(currentShelfStationItemsHolder.item.itemType, removedTrans.position, removedTrans.rotation);
-
                 itemForAnimation.itemTransform.DOMove(itemTransform.position, 0.5f).OnComplete(() => Destroy(itemForAnimation.itemTransform.gameObject));
-
                 currentItemType = currentShelfStationItemsHolder.itemType;
                 // Instantiate(Items.Instance.GetItem(currentItem), itemTransform.position, itemTransform.rotation, itemTransform);
-                var createdItem = new Item(currentItemType, itemTransform.position, itemTransform.rotation, itemTransform);
+                new Item(currentItemType, itemTransform.position, itemTransform.rotation, itemTransform);
 
-                hasItem2 = true; // Item successfully obtained
+                //hasItem2 = true; // Item successfully obtained
+                //state++;
+                state = State.LookingForCounter; // for some reason, state++ doesn't work here, even though it does
+                                                 // everywhere else.
+                MainLoop();
             }
-            // If the item is not obtained, this loop will continue, effectively "browsing" again
+            else
+            {
+                MainLoop();
+            }
+            // If the item is not obtained, continue the loop.
         }
 
-        state++; // Update state after obtaining an item
-        MainLoop(); // Call MainLoop after breaking out of the loop
+        
     }
 
     private Station currentCounterStation;
@@ -227,7 +227,7 @@ public class Customer : MonoBehaviour
 
                 foreach (StoreManager.StationHolder stationHolder in StoreManager.Instance.Stations)
                 {
-                    if (stationHolder.station.stationType == Station.StationType.Counter)
+                    if (/*stationHolder.station.stationType == Station.StationType.Counter*/stationHolder.station is Counter)
                     {
                         currentCounterStation = stationHolder.station;
                         break;

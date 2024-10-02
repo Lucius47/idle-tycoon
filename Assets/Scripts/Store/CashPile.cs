@@ -51,8 +51,7 @@ public class CashPile : MonoBehaviour
 
     public void AddCashInstantly(int amount)
     {
-        
-        for (int i = 0; i < amount; i++)
+        for (int i = cashOrigin.childCount; i < amount; i++)
         {
             GameObject cash = Instantiate(cashPrefab, transform.position, Quaternion.identity, cashOrigin);
             var cashPos = cashOrigin.position + new Vector3(x * gap.x, z * gap.y, y * gap.z);
