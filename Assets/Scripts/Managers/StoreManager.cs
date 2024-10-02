@@ -102,7 +102,7 @@ public class StoreManager : MonoBehaviour
         {
             for (int i = 0; i < storeX.numberOfWorkers; i++)
             {
-                StoreUpgrades.Instance.HireWorker();
+                StoreUpgrades.Instance.SpawnWorker();
             }
         }
     }

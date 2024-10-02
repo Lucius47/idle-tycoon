@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e808c509af7183242be87b86f171bc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  station: {fileID: 5547693538423170395}
+  station: {fileID: 7268857623191660392}
   stationBuilder: {fileID: 2671726691764209481}
 --- !u!1 &1296353392975465992
 GameObject:
@@ -214,7 +214,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3792873065184372000}
   - component: {fileID: 7268857623191660392}
-  - component: {fileID: 5547693538423170395}
   - component: {fileID: 7184105305221854420}
   - component: {fileID: 3839203948596495136}
   - component: {fileID: 644145520647389904}
@@ -257,20 +256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063441126145db3418f4cd1323d6a05c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cashPile: {fileID: 5549970542277129381}
-  workerPosition: {fileID: 4177931691690110186}
---- !u!114 &5547693538423170395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916522201183279183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743d40acc19dad14fa43b7d7064d8fc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   customerWaitPoints:
   - {fileID: 3867186710785584324}
   - {fileID: 5656295922978224320}
@@ -279,7 +264,9 @@ MonoBehaviour:
   - {fileID: 5285087471097717852}
   - {fileID: 8960571704095141751}
   - {fileID: 9038872922877517343}
-  stationType: 1
+  stationType: 2
+  workerPosition: {fileID: 4177931691690110186}
+  cashPile: {fileID: 5549970542277129381}
 --- !u!65 &7184105305221854420
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -496,7 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stationName: 
-  station: {fileID: 5547693538423170395}
+  station: {fileID: 7268857623191660392}
   stationOrigin: {fileID: 3347825639654090366}
   fillImage: {fileID: 4419989664359754586}
   cost: 100

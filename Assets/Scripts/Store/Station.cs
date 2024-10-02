@@ -1,11 +1,57 @@
+using System;
 using UnityEngine;
 
 public class Station : MonoBehaviour
 {
     [SerializeField] private Transform[] customerWaitPoints;
     public StationType stationType;
-
     private WaitPoint[] waitPoints;
+
+    #region Unity Callbacks
+    private void Awake()
+    {
+        waitPoints = new WaitPoint[customerWaitPoints.Length];
+
+        for (int i = 0; i < waitPoints.Length; i++)
+        {
+            waitPoints[i] = new()
+            {
+                Transform = customerWaitPoints[i]
+            };
+        }
+    }
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out Customer customer))
+        {
+            for (int i = 0; i < waitPoints.Length; i++)
+            {
+                if (waitPoints[i].CustomerTransform == customer.transform)
+                {
+                    waitPoints[i].IsOccupied = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    protected virtual void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out Customer customer))
+        {
+            for (int i = 0; i < waitPoints.Length; i++)
+            {
+                if (waitPoints[i].CustomerTransform == customer.transform)
+                {
+                    waitPoints[i].IsOccupied = false;
+                    waitPoints[i].CustomerTransform = null;
+                    break;
+                }
+            }
+        }
+    }
+    #endregion
 
     internal Transform GetWaitPoint(Customer customer)
     {
@@ -34,45 +80,18 @@ public class Station : MonoBehaviour
         return false;
     }
 
-    private void Awake()
-    {
-        waitPoints = new WaitPoint[customerWaitPoints.Length];
+    [SerializeField] private Transform workerPosition;
 
-        for (int i = 0; i < waitPoints.Length; i++)
+    internal virtual Transform GetWorkerPosition()
+    {
+        if (workerPosition)
         {
-            waitPoints[i] = new WaitPoint();
-            waitPoints[i].Transform = customerWaitPoints[i];
+            return workerPosition;
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent(out Customer customer))
+        else
         {
-            for (int i = 0; i < waitPoints.Length; i++)
-            {
-                if (waitPoints[i].CustomerTransform == customer.transform)
-                {
-                    waitPoints[i].IsOccupied = true;
-                    break;
-                }
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out Customer customer))
-        {
-            for (int i = 0; i < waitPoints.Length; i++)
-            {
-                if (waitPoints[i].CustomerTransform == customer.transform)
-                {
-                    waitPoints[i].IsOccupied = false;
-                    waitPoints[i].CustomerTransform = null;
-                    break;
-                }
-            }
+            Debug.LogError("Worker position not set for " + gameObject.name);
+            return transform;
         }
     }
 
@@ -84,6 +103,11 @@ public class Station : MonoBehaviour
                 && waitPoints[i].IsOccupied
                 ) return true;
         }
+        return false;
+    }
+
+    internal virtual bool HasWorker()
+    {
         return false;
     }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class NPCMovement : MonoBehaviour
 {
     private Transform target;
@@ -12,7 +13,7 @@ public class NPCMovement : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    private void Start()
+    protected virtual void Awake()
     {
         if (!animator)
         {
@@ -46,11 +47,12 @@ public class NPCMovement : MonoBehaviour
             if (reachedTarget != null)
             {
                 reachedTarget.Invoke();
-                reachedTarget = null;
+                //reachedTarget = null; // Was causing the worker to stop moving after reaching the 2nd target
             }
         }
 
         Debug.DrawLine(transform.position, target.position, Color.red);
+
     }
 
 
