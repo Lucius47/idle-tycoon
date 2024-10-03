@@ -26,6 +26,7 @@ public class StockerNPC : NPCMovement
             var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
             foreach (Station station in allStations)
             {
+                // Shelf shelf = station as Shelf;
                 if (station is Shelf shelf && !station.HasWorker() && shelf.IsSupplyShelf())
                 {
                     targetShelf = station;
@@ -48,6 +49,15 @@ public class StockerNPC : NPCMovement
             }
         }
     }
+
+    //public void ProcessEmptySupplyShelf<T>(T station) where T : Shelf
+    //{
+    //    if (!station.HasWorker() && station.IsSupplyShelf())
+    //    {
+    //        // Do something with the empty supply shelf
+    //        // ...
+    //    }
+    //}
 
     private IEnumerator LookForShelf()
     {
