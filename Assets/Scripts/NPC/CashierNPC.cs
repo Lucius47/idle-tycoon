@@ -42,7 +42,7 @@ public class CashierNPC : MonoBehaviour
             var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
             foreach (Station station in allStations)
             {
-                if (!station.HasWorker() && station.IsSupplyShelf())
+                if (station is Counter && !station.HasWorker())
                 {
                     targetStation = station;
                     break;

@@ -98,11 +98,19 @@ public class StoreManager : MonoBehaviour
             }
         }
 
-        if (storeX.numberOfWorkers > 0)
+        if (storeX.numberOfCashiers > 0)
         {
-            for (int i = 0; i < storeX.numberOfWorkers; i++)
+            for (int i = 0; i < storeX.numberOfCashiers; i++)
             {
-                StoreUpgrades.Instance.SpawnWorker();
+                StoreUpgrades.Instance.SpawnCashier();
+            }
+        }
+
+        if (storeX.numberOfStockers > 0)
+        {
+            for (int i = 0; i < storeX.numberOfStockers; i++)
+            {
+                StoreUpgrades.Instance.SpawnStocker();
             }
         }
     }
@@ -126,10 +134,19 @@ public class StoreManager : MonoBehaviour
         System.IO.File.WriteAllText(Application.persistentDataPath + "/Store1.json", json);
     }
 
-    public void AddWorker()
+    public void AddCashier()
     {
         StoreX storeX = JsonUtility.FromJson<StoreX>(System.IO.File.ReadAllText(Application.persistentDataPath + "/Store1.json"));
-        storeX.numberOfWorkers++;
+        storeX.numberOfCashiers++;
+
+        string json = JsonUtility.ToJson(storeX);
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/Store1.json", json);
+    }
+
+    public void AddStocker()
+    {
+        StoreX storeX = JsonUtility.FromJson<StoreX>(System.IO.File.ReadAllText(Application.persistentDataPath + "/Store1.json"));
+        storeX.numberOfStockers++;
 
         string json = JsonUtility.ToJson(storeX);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/Store1.json", json);
@@ -149,7 +166,8 @@ public class StoreX
 {
     public List<StationHolderX> stations = new();
     public List<CashPileHolder> cashPileHolders = new();
-    public int numberOfWorkers;
+    public int numberOfCashiers;
+    public int numberOfStockers;
 }
 
 [Serializable]
