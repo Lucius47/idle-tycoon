@@ -15,6 +15,7 @@ public class StockerNPC : NPCMovement
 
     private void Start()
     {
+        myHolder = GetComponent<GenericItemsHolder>();
         StartCoroutine(LookForSupplyShelf());
     }
 
@@ -27,7 +28,7 @@ public class StockerNPC : NPCMovement
             foreach (Station station in allStations)
             {
                 // Shelf shelf = station as Shelf;
-                if (station is Shelf shelf && !station.HasWorker() && shelf.IsSupplyShelf())
+                if (station is Shelf shelf && !station.HasWorker() && shelf.IsSupplyShelf() && shelf.GetItemType() == myHolder.itemType)
                 {
                     targetShelf = station;
                     break;
@@ -66,7 +67,7 @@ public class StockerNPC : NPCMovement
             var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
             foreach (Station station in allStations)
             {
-                if (station is Shelf shelf && !station.HasWorker() && !shelf.IsSupplyShelf()/* && station.GetItemType() == myHolder.itemType*/)
+                if (station is Shelf shelf && !station.HasWorker() && !shelf.IsSupplyShelf() && shelf.GetItemType() == myHolder.itemType)
                 {
                     targetShelf = station;
                     break;
