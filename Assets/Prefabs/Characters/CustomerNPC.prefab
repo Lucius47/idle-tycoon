@@ -385,7 +385,6 @@ GameObject:
   m_Component:
   - component: {fileID: 797408019265693341}
   - component: {fileID: 3434386436416322417}
-  - component: {fileID: 12682494710158847}
   - component: {fileID: 1403993877316867249}
   - component: {fileID: 6860288282146084525}
   m_Layer: 6
@@ -435,20 +434,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &12682494710158847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8612888259427650323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43ee0198c9f33bd43b12a229cbf2fdee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnSpeed: 10
-  animator: {fileID: 5090567520740481784}
 --- !u!114 &1403993877316867249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,8 +446,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6ee80a7de920643b4a15c1b2288498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnSpeed: 100
+  animator: {fileID: 5090567520740481784}
   itemTransform: {fileID: 4687215038305712523}
-  debugText: {fileID: 7617727998074057940}
 --- !u!65 &6860288282146084525
 BoxCollider:
   m_ObjectHideFlags: 0
