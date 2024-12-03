@@ -10,27 +10,46 @@ public class StockerNPC : NPCMovement
     // Put item on the shelf
     // Repeat
 
-    private Station targetShelf;
+    private Shelf targetShelf;
     private GenericItemsHolder myHolder;
 
     private void Start()
     {
         myHolder = GetComponent<GenericItemsHolder>();
-        StartCoroutine(LookForSupplyShelf());
+        StartCoroutine(LookForEmptyShelf());
+    }
+
+    private IEnumerator LookForEmptyShelf()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        var allShelves = FindObjectsByType<Shelf>(FindObjectsSortMode.None);
+
+        foreach (var shelf in allShelves)
+        {
+            if (!shelf.IsSupplyShelf() && !shelf.IsFull())
+            {
+                myHolder.itemType = shelf.GetItemType();
+                StartCoroutine(LookForSupplyShelf());
+                yield break;
+            }
+        }
     }
 
 
     private IEnumerator LookForSupplyShelf()
     {
+        yield return new WaitForSeconds(0.5f);
+
         while (targetShelf == null)
         {
-            var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
-            foreach (Station station in allStations)
+            var allShelves = FindObjectsByType<Shelf>(FindObjectsSortMode.None);
+            foreach (Shelf shelf in allShelves)
             {
                 // Shelf shelf = station as Shelf;
-                if (station is Shelf shelf && !station.HasWorker() && shelf.IsSupplyShelf() && shelf.GetItemType() == myHolder.itemType)
+                if (!shelf.HasWorker() && shelf.IsSupplyShelf() && shelf.GetItemType() == myHolder.itemType)
                 {
-                    targetShelf = station;
+                    targetShelf = shelf;
                     break;
                 }
             }
@@ -62,14 +81,16 @@ public class StockerNPC : NPCMovement
 
     private IEnumerator LookForShelf()
     {
+        yield return new WaitForSeconds(0.5f);
+
         while (targetShelf == null)
         {
-            var allStations = FindObjectsByType<Station>(FindObjectsSortMode.None);
-            foreach (Station station in allStations)
+            var allShelves = FindObjectsByType<Shelf>(FindObjectsSortMode.None);
+            foreach (Shelf shelf in allShelves)
             {
-                if (station is Shelf shelf && !station.HasWorker() && !shelf.IsSupplyShelf() && shelf.GetItemType() == myHolder.itemType)
+                if (!shelf.HasWorker() && !shelf.IsSupplyShelf() && shelf.GetItemType() == myHolder.itemType)
                 {
-                    targetShelf = station;
+                    targetShelf = shelf;
                     break;
                 }
             }
@@ -79,7 +100,7 @@ public class StockerNPC : NPCMovement
                 SetTarget(targetShelf.transform, () =>
                 {
                     targetShelf = null;
-                    StartCoroutine(LookForSupplyShelf());
+                    StartCoroutine(LookForEmptyShelf());
                 });
                 yield break;
             }

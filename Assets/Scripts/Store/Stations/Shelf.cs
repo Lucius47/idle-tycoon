@@ -29,4 +29,17 @@ public class Shelf : Station
             throw new NotImplementedException();
         }
     }
+
+    internal bool IsFull()
+    {
+        if (TryGetComponent<GenericItemsHolder>(out var holder))
+        {
+            return holder.IsFull();
+        }
+        else
+        {
+            Debug.LogError("No GenericItemsHolder found on " + gameObject.name);
+            throw new NotImplementedException();
+        }
+    }
 }
