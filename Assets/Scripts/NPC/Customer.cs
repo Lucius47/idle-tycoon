@@ -49,6 +49,8 @@ public class Customer : NPCMovement
     private Station currentShelf;
     private IEnumerator LookForShelf()
     {
+        yield return new WaitForSeconds(0.5f);
+
         while (currentShelf == null)
         {
             foreach (StoreManager.StationHolder stationHolder in StoreManager.Instance.Stations)
@@ -92,6 +94,7 @@ public class Customer : NPCMovement
                     //state++;
                     StartCoroutine(BrowseItems());
                     hasReached = true;
+                    //target = null;
                 });
 
                 yield return new WaitUntil(() => hasReached);
@@ -116,39 +119,21 @@ public class Customer : NPCMovement
         var currentShelfStationItemsHolder = currentShelf.GetComponent<GenericItemsHolder>();
         var itemForAnimation = currentShelfStationItemsHolder.RemoveItem(currentShelfStationItemsHolder.itemType);
 
-        while (itemForAnimation == null)
+        if (itemForAnimation != null)
         {
-            itemForAnimation = currentShelfStationItemsHolder.RemoveItem(currentShelfStationItemsHolder.itemType);
-
-            if (itemForAnimation != null)
-            {
-                itemForAnimation.itemTransform.DOMove(itemTransform.position, 0.5f).OnComplete(() => Destroy(itemForAnimation.itemTransform.gameObject));
-                currentItemType = currentShelfStationItemsHolder.itemType;
-                new Item(currentItemType, itemTransform.position, itemTransform.rotation, itemTransform);
-                StartCoroutine(LookForCounter());
-                yield break;
-            }
-
-            yield return new WaitForSeconds(0.5f);
+            itemForAnimation.itemTransform.DOMove(itemTransform.position, 0.5f).OnComplete(() => Destroy(itemForAnimation.itemTransform.gameObject));
+            currentItemType = currentShelfStationItemsHolder.itemType;
+            new Item(currentItemType, itemTransform.position, itemTransform.rotation, itemTransform);
+            StartCoroutine(LookForCounter());
+            yield break;
         }
-
-        //if (itemForAnimation != null)
-        //{
-        //    itemForAnimation.itemTransform.DOMove(itemTransform.position, 0.5f).OnComplete(() => Destroy(itemForAnimation.itemTransform.gameObject));
-        //    currentItemType = currentShelfStationItemsHolder.itemType;
-        //    // Instantiate(Items.Instance.GetItem(currentItem), itemTransform.position, itemTransform.rotation, itemTransform);
-        //    new Item(currentItemType, itemTransform.position, itemTransform.rotation, itemTransform);
-
-        //    //hasItem2 = true; // Item successfully obtained
-        //    //state++;
-        //    //state = State.LookingForCounter; // for some reason, state++ doesn't work here, even though it does
-        //    // everywhere else.
-        //    StartCoroutine(LookForCounter());
-        //}
-        //else
-        //{
-        //    StartCoroutine(BrowseItems());
-        //}
+        else // this shelf might be empty. Look for another shelf.
+        {
+            yield return new WaitForSeconds(0.5f);
+            currentShelf = null;
+            StartCoroutine(LookForShelf());
+            yield break;
+        }
     }
 
     private Station currentCounterStation;
@@ -177,6 +162,7 @@ public class Customer : NPCMovement
 
     private IEnumerator GotoCounter()
     {
+        yield return new WaitForSeconds(0.5f); // important.
         bool hasReached = false;
 
         if (currentCounterStation)
@@ -227,6 +213,8 @@ public class Customer : NPCMovement
     private bool checkoutComplete;
     private IEnumerator PerformCheckout()
     {
+        yield return new WaitForSeconds(0.5f); // important.
+
         var currentCounter = currentCounterStation.GetComponent<Counter>();
         bool isProcessing = true;
 
