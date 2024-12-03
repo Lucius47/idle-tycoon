@@ -10,3 +10,10 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 41395
+  packageName: Touch Controls Kit - Lite
+  packageVersion: 1.5.5
+  assetPath: Assets/VictorsAssets/TouchControlsKit-Lite/Scripts/Editor/CustomInspectors/Controllers/TCKButtonEditor.cs
+  uploadId: 228686

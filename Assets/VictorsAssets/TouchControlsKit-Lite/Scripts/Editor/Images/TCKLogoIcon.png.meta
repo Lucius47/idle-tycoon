@@ -90,3 +90,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 41395
+  packageName: Touch Controls Kit - Lite
+  packageVersion: 1.5.5
+  assetPath: Assets/VictorsAssets/TouchControlsKit-Lite/Scripts/Editor/Images/TCKLogoIcon.png
+  uploadId: 228686

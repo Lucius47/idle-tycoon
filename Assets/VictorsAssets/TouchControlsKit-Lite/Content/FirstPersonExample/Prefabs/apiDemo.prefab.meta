@@ -2,3 +2,10 @@ fileFormatVersion: 2
 guid: 1615a8c64f37f754688e256b8aca3e75
 NativeFormatImporter:
   userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 41395
+  packageName: Touch Controls Kit - Lite
+  packageVersion: 1.5.5
+  assetPath: Assets/VictorsAssets/TouchControlsKit-Lite/Content/FirstPersonExample/Prefabs/apiDemo.prefab
+  uploadId: 228686

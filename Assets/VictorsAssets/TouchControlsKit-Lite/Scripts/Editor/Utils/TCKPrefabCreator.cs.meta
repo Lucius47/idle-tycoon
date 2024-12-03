@@ -6,3 +6,10 @@ MonoImporter:
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 41395
+  packageName: Touch Controls Kit - Lite
+  packageVersion: 1.5.5
+  assetPath: Assets/VictorsAssets/TouchControlsKit-Lite/Scripts/Editor/Utils/TCKPrefabCreator.cs
+  uploadId: 228686
