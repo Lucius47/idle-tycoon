@@ -1,0 +1,46 @@
+﻿References Finder
+Version 1.0
+
+
+Overview
+The References Finder tool allows Unity developers to quickly find scene references to a selected GameObject and its components. This tool is useful when you need to identify which other GameObjects and components are interacting with the selected GameObject, thereby enhancing your workflow and debugging process.
+
+Features
+• Quick Reference Search: Finds all references to the selected GameObject and its components within the active scene.
+• Scene Component Exploration: Automatically highlights references in the Unity Hierarchy, allowing you to quickly navigate through the scene.
+• Hierarchy Highlighter Window: Displays all components and GameObjects that reference the selected object in a simple, easy-to-navigate editor window.
+Installation
+• Download the Package: Import the asset into your Unity project from the Asset Store.
+• Open the Package: After importing, the References Finder script can be found under your project assets.
+How to Use
+• Select a GameObject: In the Hierarchy, select the GameObject you want to check for references.
+• Run the Finder:
+       Right-click the selected GameObject in the Hierarchy.
+• Navigate to GameObject > Check References.
+• Alternatively, you can access it from the Unity Menu Bar: GameObject > Check References.
+• View the Results:
+If references are found, a window named Hierarchy Highlighter will open.
+• The Hierarchy Highlighter window will display all components and fields that reference the selected GameObject.
+• Click on any listed reference to highlight it in the Hierarchy.
+Usage Notes
+• Supported Versions: This tool works with Unity Editor 2021.3 or newer.
+• Editor-Only Tool: References Finder is an Editor utility, meaning it is used only during development and is not included in the build.
+• MonoBehaviour Components: The tool identifies references that are set on MonoBehaviour components (both public and private fields).
+Troubleshooting
+• No References Found:
+
+       Ensure you have selected a valid GameObject in the scene.
+Ensure there are other GameObjects/components referencing the selected GameObject.
+Performance Issues:
+
+• On larger scenes, searching for references might take some time. We recommend running the tool on scenes with fewer GameObjects to improve performance.
+License
+This asset is licensed under the Apache License, Version 2.0. You may use, modify, and distribute this software as per the terms of the license. For full license details, refer to the LICENSE file.
+
+Support
+For any issues, feature requests, or general queries, please reach out via the links below:
+
+Created by Muneeb Ullah
+Copyright © 2011-2024
+https://muneebullah.com/
+https://github.com/Lucius47
