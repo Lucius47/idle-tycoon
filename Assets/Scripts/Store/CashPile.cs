@@ -35,6 +35,19 @@ public class CashPile : MonoBehaviour
                 Destroy(gameObject);
             }
 
+            x--;
+            if (x < 0)
+            {
+                x = (int)cashPileSize.x - 1;
+                z--;
+
+                if (z < 0)
+                {
+                    z = (int)cashPileSize.y - 1;
+                    y--;
+                }
+            }
+
             return 1;
         }
 
@@ -46,15 +59,15 @@ public class CashPile : MonoBehaviour
     }
 
     int x = 0;
-    int y = 0;
     int z = 0;
+    int y = 0;
 
     public void AddCashInstantly(int amount)
     {
-        for (int i = cashOrigin.childCount; i < amount; i++)
+        for (int i = 0; i < amount; i++)
         {
             GameObject cash = Instantiate(cashPrefab, transform.position, Quaternion.identity, cashOrigin);
-            var cashPos = cashOrigin.position + new Vector3(x * gap.x, z * gap.y, y * gap.z);
+            var cashPos = cashOrigin.position + new Vector3(x * gap.x, y * gap.y, z * gap.z);
 
             cash.transform.DOPath(
                     new Vector3[] {
@@ -72,12 +85,12 @@ public class CashPile : MonoBehaviour
             if (x == cashPileSize.x)
             {
                 x = 0;
-                y++;
+                z++;
 
-                if (y == cashPileSize.y)
+                if (z == cashPileSize.y)
                 {
-                    y = 0;
-                    z++;
+                    z = 0;
+                    y++;
                 }
             }
         }
