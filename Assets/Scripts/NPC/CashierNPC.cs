@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -83,14 +84,13 @@ public class CashierNPC : MonoBehaviour
                         state++;
                         isProcessing = false; // Break the loop
 
-                        if (targetStation is Counter counter)
-                        {
-                            // Stay at the counter.
-                        }
-                        //else
+                        //if (targetStation is Counter counter)
                         //{
-                        //    PerformStockerDuties();
+                        //    // Stay at the counter.
                         //}
+
+                        // face the counter
+                        transform.DORotate(target.forward, 1); // temporary
                     });
 
                     // Wait for the callback to be called before proceeding
