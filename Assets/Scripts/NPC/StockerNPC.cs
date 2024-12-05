@@ -97,7 +97,7 @@ public class StockerNPC : NPCMovement
 
             if (targetShelf)
             {
-                SetTarget(targetShelf.transform, () =>
+                SetTarget(targetShelf.GetWorkerPosition(), () =>
                 {
                     targetShelf = null;
                     StartCoroutine(LookForEmptyShelf());
